@@ -35,13 +35,13 @@ module.exports = function(grunt) {
             },
             site: {
                 src: [
-                    'node_modules/jquery/dist.jquery.js',
+                    './node_modules/jquery/dist/jquery.js',
                     './node_modules/bootstrap/dist/js/bootstrap.js',
-                    'node_modules/leaflet/dist/leaflet-src.js',
-                    'node_modules/mapbox-gl/dist/mapbox-gl-unminified.js',
-                    'node_modules/mapbox-gl-leaflet/leaflet-mapbox-gl.js',
+                    './node_modules/leaflet/dist/leaflet-src.js',
+                    './node_modules/mapbox-gl/dist/mapbox-gl-unminified.js',
+                    './node_modules/mapbox-gl-leaflet/leaflet-mapbox-gl.js',
                     './node_modules/leaflet.locatecontrol/src/L.Control.Locate.js',
-                    'src/js/site.js'
+                    './src/js/site.js'
                 ],
                 dest: '<%= dirs.public %>/assets/js/site.js'
             }

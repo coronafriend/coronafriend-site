@@ -24,7 +24,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">CoronaFriend</a>
+        <a class="navbar-brand" href="#">CoronaFriend</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -32,13 +32,49 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">About</a>
                 </li>
         </div>
     </nav>
+    <!-- <div class="container-fluid">
+        <div class="row" id="preamble">
+            <div class="col">
+                <h1>Corona Friend</h1>
+                <h2>Help and connect with your neighbours during COVID-19</h2>
+                <p>COVID-19 is putting everyone at great risk; friends, families and the vulnerable. Everyone lives a few doors away from someone who might need help.</p>
+                <p>Offer your support by posting a Corona Friend postcard through their door. If we all pull together, no-one in the UK will have to face this virus alone.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" id="step-one">
+                <h2>Step One</h2>
+                <p><a href="/assets/docs/CoronaFriendPostcard.pdf" target="_blank">Download</a>, print out and fill in the Corona Friend postcard.</p>
+                <img src="/assets/images/corona-friend-postcard.png" class="img-fluid" alt="Corona Friend Postcard" />
+            </div>
+            <div class="col" id="step-two">
+                <h2>Step Two</h2>
+                <p>Pop the filled out postcard through your neighbour's door.</p>
+            </div>
+            <div class="col" id="step-three">
+                <h2>Step Three</h2>
+                <p>Now claim and mark your road on the map below so people know whether it's covered or not.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="map-container">
+                <div class="map-frame">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="footer">
+            <div class="col">
+            </div>
+        </div>
+    </div> -->
 
     <div class="container-fluid">
         <div class="row">
@@ -50,26 +86,18 @@
         </div>
 
         <div class="row">
-            <div class="col" id="step-three">
-                <h2>Step One</h2>
-                <p>Claim and mark your road on the map below so people know whether it's covered or not.</p>
-                <i class="fas fa-map-marked fa-10x step-icon"></i>
-                <div id="find-location">
-                    <button type="button" class="btn btn-secondary btn-lg">Find me!</button>
-                </div>
-                <div id="find-postcode">
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Postcode" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                </div>
+            <div class="col-sm" id="step-two">
+                <h2>Step Two</h2>
+                <p><a href="/assets/docs/CoronaFriendPostcard.pdf" target="_blank">Download</a>, print out and fill in the Corona Friend postcard.</p>
+                <img src="/assets/images/corona-friend-postcard.png" class="img-fluid mx-auto" alt="Corona Friend Postcard" />
             </div>
         </div>
-        <div class="row" id="map"></div>
-        <div class="row" id="next-step">
-            <a href="/next-steps.html">
-                <button type="button" class="btn btn-secondary btn-lg">Next steps ...</button>
-            </a>
+        <div>
+            <div class="col-sm" id="step-three">
+                <h2>Step Three</h2>
+                <p>Pop the filled out postcard through your neighbour's door.</p>
+                <i class="fas fa-door-closed fa-10x step-icon"></i>
+            </div>
         </div>
     </div>
 <script src="/assets/js/site.js"></script>

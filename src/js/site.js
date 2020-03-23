@@ -33,7 +33,7 @@ var road_layer = L.geoJSON(null, {
                 console.log(e.type + ': ' + e.target.feature.id);
                 layer.setStyle(road_style);
             }
-        })
+        });
     }
 }).addTo(map);
 
@@ -89,43 +89,6 @@ function onLocationFound(e) {
         .openPopup();
     L.circle(e.latlng, radius).addTo(map);
     renderRoads();
-    // var bounds = map.getBounds();
-    // var url = 'https://api.coronafriend.test/v1/roads?bounds=' + bounds.toBBoxString();
-    // fetch(url)
-    //     .then((response) => {
-    //         return response.json();
-    //     })
-    //     .then((data) => {
-    //         console.log(data);
-    //     });
-
-    // fetch(url)
-    //     .then (function(response) {
-    //         return response.json();
-    //     })
-    //     .then (function(json) {
-    //         console.log('parsed json');
-    //         console.log(json);
-    //         road_layer.addData(json).setStyle(road_style);
-    //     })
-    //     .catch(function(ex) {
-    //         console.log('parsing failed', ex);
-    //     });
-
-    // var api = new CoronaFriend.API();
-    // console.log(api);
-    // var callbackHandler = {
-    //     onSuccess: function(response) {
-    //         console.log('callback - onSuccess');
-    //         console.log(response);
-    //     },
-    //     onFailure: function(response) {
-    //         console.log('callback - onFailure');
-    //     }
-    // }
-    //
-    // var bounds = map.getBounds();
-    // api.getRoadsByBoundingBox(bounds.toBBoxString(), callbackHandler);
 }
 
 function clearRoads() {
@@ -145,10 +108,6 @@ function renderRoads() {
             return response.json();
         })
         .then (function(json) {
-            // console.log('parsed json');
-            // console.log(json);
-
-            // road_layer.addData(json).setStyle(road_style);
             road_layer.addData(json);
         })
         .catch(function(ex) {

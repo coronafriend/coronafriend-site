@@ -1,0 +1,6 @@
+// Stop Mapbox GL's JS code whinging about not including
+// it's own CSS, which we're not actually using!
+
+.mapboxgl-canary {
+    background-color: #000000;
+}
