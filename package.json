@@ -1,0 +1,39 @@
+{
+  "name": "@coronafriend/coronafriend-site",
+  "version": "1.0.0",
+  "description": "The source for www.coronafriend.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coronafriend/coronafriend-site.git"
+  },
+  "author": "Gary Gale <gary@vicchi.org>",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/coronafriend/coronafriend-site/issues"
+  },
+  "homepage": "https://github.com/coronafriend/coronafriend-site#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.12.1",
+    "bootstrap": "^4.4.1",
+    "grunt": "^1.1.0",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-openport": "^1.0.0",
+    "grunt-sass": "^3.1.0",
+    "jquery": "^3.4.1",
+    "leaflet": "^1.6.0",
+    "leaflet.locatecontrol": "^0.70.0",
+    "load-grunt-tasks": "^5.1.0",
+    "mapbox-gl": "^1.8.1",
+    "mapbox-gl-leaflet": "0.0.11",
+    "node-sass": "^4.13.1",
+    "popper.js": "^1.16.1"
+  }
+}
