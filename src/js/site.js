@@ -222,10 +222,10 @@ $(document).ready(function() {
     }
   });
 
-  // does not work yet :(
-  // $('#map-postcode-input').dblclick(function(e) {
-  //   e.preventDefault();
-  // });
+  $('#map-postcode-input').dblclick(function(e) {
+    // e.preventDefault();
+    e.stopPropagation();
+  });
 
   $('#map-search-postcode').click(function(e) {
     e.preventDefault();
