@@ -13,6 +13,8 @@ var map = L.map('map', {
     [58.6350001085, 1.68153079591],
   ],
 });
+
+// Roads
 var road_style = {
   color: '#2fb67b',
   weight: 10,
@@ -46,6 +48,8 @@ var road_layer = L.geoJSON(null, {
   },
 }).addTo(map);
 
+// Basemap
+
 var gl = L.mapboxGL({
   style:
     'https://s3-eu-west-1.amazonaws.com/tiles.os.uk/v2/styles/open-zoomstack-light/style.json',
@@ -56,16 +60,24 @@ map.attributionControl.addAttribution(
   'Contains OS data &copy; Crown copyright and database rights 2018'
 );
 
-locate_options = {
+// locate control
+
+var locate_options = {
   setView: true,
   maxZoom: 17,
 };
+
 map.locate(locate_options);
-L.control
+
+var lc = L.control
   .locate({
+    position: 'topright',
+    icon: 'fas fa-map-marked fa-2x',
     locateOptions: locate_options,
   })
   .addTo(map);
+
+// map events
 
 map.on('load', function(e) {
   reportUpdate(e);
@@ -112,6 +124,7 @@ function onLocationFound(e) {
     .openPopup();
   L.circle(e.latlng, radius).addTo(map);
   renderRoads();
+  lc.stop();
 }
 
 function clearRoads() {
