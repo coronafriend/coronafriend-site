@@ -1,8 +1,9 @@
 @import "variables";
 
-// @import "fontawesome.scss";
+@import "fontawesome.scss";
 @import "solid.scss";
-// @import "bootstrap.scss";
+@import "bootstrap.scss";
+@import "bootswatch";
 @import "L.Control.Locate.scss";
 
 @import "overrides/mapbox/mapbox";
@@ -11,20 +12,30 @@
 
 html, body {
     height: 100%;
+    text-align: center;
     font-family: "Open Sans", Arial, Helvetica, sans-serif;
 }
 
-.step-icon {
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-    vertical-align: middle;
+.step {
+    margin-top: 30px;
 }
 
-#step-two {
-    img {
-        width: 50%;
+footer {
+    background:$primary-light;
+    color: $white;
+    a {
+        color: $light;
     }
+}
+// .step-icon {
+//     display: inline-block;
+//     width: 100%;
+//     text-align: center;
+//     vertical-align: middle;
+// }
+
+#find-postcode {
+    z-index: 900;
 }
 
 #map {
@@ -39,11 +50,23 @@ html, body {
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
 
+    #step-two {
+        img {
+            width: 50%;
+        }
+    }
+    
 }
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) {
 
+    #step-two {
+        img {
+            width: 25%;
+        }
+    }
+    
 }
 
 // Extra large devices (large desktops, 1200px and up)
