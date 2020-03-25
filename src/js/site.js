@@ -72,7 +72,7 @@ map.locate(locate_options);
 var lc = L.control
   .locate({
     position: 'topright',
-    icon: 'fas fa-map-marked fa-2x',
+    icon: 'fas fa-map-marked-alt fa-2x',
     locateOptions: locate_options,
   })
   .addTo(map);
@@ -124,7 +124,6 @@ function onLocationFound(e) {
     .openPopup();
   L.circle(e.latlng, radius).addTo(map);
   renderRoads();
-  lc.stop();
 }
 
 function clearRoads() {
@@ -154,13 +153,118 @@ function renderRoads() {
 
 map.on('locationfound', onLocationFound);
 
-// ----------------------------------------------------------------------------
-//
-//  Scroll top
-//
-// ----------------------------------------------------------------------------
-
 $(document).ready(function() {
+  // ----------------------------------------------------------------------------
+  //
+  //  Toogle street infos
+  //
+  // ----------------------------------------------------------------------------
+
+  function toggleStreetInfo() {
+    $('#street-wrapper').toggle();
+    // TODO : here switch map-wrapper attribute : col-md-12 <=> col-md-9
+    map.invalidateSize();
+    return false;
+  }
+
+  // ----------------------------------------------------------------------------
+  //
+  //  Search Postcode
+  //
+  // ----------------------------------------------------------------------------
+
+  function searchPostode(postcode) {
+    // TODO: URL
+    var url = 'https://httpbin.org/get?postcode=' + postcode;
+    fetch(url)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(json) {
+        // TODO: remove hardcoded result
+        json.features = [{ geometry: { coordinates: [-0.202159, 51.531403] } }];
+        // check geosjon with features
+        if (!json.features) {
+          $();
+        }
+        //
+        var features = json.features;
+        if (features && features.length > 1) {
+          // TODO: multiple pin on the map ? or display list of results ?
+        } else {
+          var feature = features[0];
+          var coordinates = feature.geometry.coordinates;
+          map.setView([coordinates[1], coordinates[0]], 17);
+        }
+      })
+      .catch(function(ex) {
+        console.log('parsing failed', ex);
+      });
+  }
+
+  /* Highlight search box text on click */
+  $('#postcode-input').click(function() {
+    $(this).select();
+  });
+  $('#map-postcode-input').click(function() {
+    $(this).select();
+  });
+
+  /* Prevent hitting enter from refreshing the page */
+  $('#postcode-input').keypress(function(e) {
+    if (e.which === 13) {
+      e.preventDefault();
+    }
+  });
+  $('#map-postcode-input').keypress(function(e) {
+    if (e.which === 13) {
+      e.preventDefault();
+    }
+  });
+
+  // does not work yet :(
+  // $('#map-postcode-input').dblclick(function(e) {
+  //   e.preventDefault();
+  // });
+
+  $('#map-search-postcode').click(function(e) {
+    e.preventDefault();
+    console.log('search postcode');
+    var postcode = $('#map-postcode-input').val();
+    if (!!postcode) {
+      searchPostode(postcode);
+    }
+    return false;
+  });
+
+  $('#search-postcode').click(function(e) {
+    e.preventDefault();
+    console.log('search postcode');
+    var postcode = $('#postcode-input').val();
+    if (!!postcode) {
+      searchPostode(postcode);
+    }
+    return false;
+  });
+
+  // ----------------------------------------------------------------------------
+  //
+  //  About button click
+  //
+  // ----------------------------------------------------------------------------
+
+  $('#about-btn').click(function() {
+    $('#aboutModal').modal('show');
+    $('.navbar-collapse.in').collapse('hide');
+    return false;
+  });
+
+  // ----------------------------------------------------------------------------
+  //
+  //  Scroll top
+  //
+  // ----------------------------------------------------------------------------
+
   $(window).scroll(function() {
     if ($(this).scrollTop() > 50) {
       $('#back-to-top').fadeIn();
