@@ -20,19 +20,32 @@ html, body {
     margin-top: 30px;
 }
 
+.body-color {
+    color: $body-color;
+}
+
 footer {
+    margin-top: 40px;
     background:$primary-light;
-    color: $white;
+    color: $light;
     a {
         color: $light;
     }
 }
-// .step-icon {
+.step-icon {
+    color: $secondary-light;
 //     display: inline-block;
 //     width: 100%;
 //     text-align: center;
 //     vertical-align: middle;
-// }
+}
+
+.postcard {
+    img {
+        width: 50%;
+    }
+}
+
 
 #find-postcode {
     z-index: 900;
@@ -40,7 +53,7 @@ footer {
 
 #map {
     min-height: 750px;
-}
+}    
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) {
@@ -50,23 +63,13 @@ footer {
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
 
-    #step-two {
-        img {
-            width: 50%;
-        }
-    }
     
 }
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) {
-
-    #step-two {
-        img {
-            width: 25%;
-        }
-    }
     
+
 }
 
 // Extra large devices (large desktops, 1200px and up)

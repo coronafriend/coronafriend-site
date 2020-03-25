@@ -30,11 +30,14 @@ $green:   #56CC9D !default;
 $teal:    #20c997 !default;
 $cyan:    #6CC3D5 !default;
 
+$primary:       #32b6be !default;
+$primary-light: #95d1d7 !default;
+$secondary:     #F08d88 !default;
+$secondary-light: #F9d8bf !default;
+$third-color: #ffe288;
+
 // $primary:       #78C2AD !default;
 // $secondary:     #F3969A !default;
-$primary:       #32b6be !default;
-$secondary:     #F08d88 !default;
-$primary-light: #88cac1 !default;
 $success:       $green !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
