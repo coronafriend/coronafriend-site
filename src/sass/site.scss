@@ -2,6 +2,8 @@
 
 @import "fontawesome.scss";
 @import "solid.scss";
+@import "brands.scss";
+
 @import "bootstrap.scss";
 @import "bootswatch";
 @import "L.Control.Locate.scss";
@@ -46,6 +48,14 @@ footer {
     }
 }
 
+.back-to-top {
+    position: fixed;    
+    bottom: 25px;
+    right: 25px;
+    display: none;
+    color: $light;
+    background-color: $gray-600;
+}
 
 #find-postcode {
     z-index: 900;
