@@ -1,11 +1,9 @@
-// ----------------------------------------------------------------------------
-//
-//  MAP
-//
-// ----------------------------------------------------------------------------
-
-$(document).ready(function() {
-
+$(document).ready(function () {
+    // ----------------------------------------------------------------------------
+    //
+    //  MAP
+    //
+    // ----------------------------------------------------------------------------
     var map = L.map('map', {
         minZoom: 7,
         maxZoom: 18,
@@ -34,24 +32,23 @@ $(document).ready(function() {
         empty: {
             color: '#F9D8BF',
             weight: 10,
-            opacity: 0.65
+            opacity: 0.65,
         },
         partial: {
             color: '#FFE288',
             weight: 10,
-            opacity: 0.65
+            opacity: 0.65,
         },
         full: {
             color: '#95D1D7',
             weight: 10,
-            opacity: 0.65
+            opacity: 0.65,
         },
         selected: {
             color: '#F08D88',
             weight: 15,
-            opacity: 1.0
-
-        }
+            opacity: 1.0,
+        },
     };
 
     function getRoadStyle(claim_type) {
@@ -76,16 +73,18 @@ $(document).ready(function() {
     var selected_layer = null;
 
     var road_layer = L.geoJSON(null, {
-        style: function(feature) {
+        style: function (feature) {
             return getRoadStyle(feature.properties.claim_type);
         },
-        onEachFeature: function(feature, layer) {
+        onEachFeature: function (feature, layer) {
             layer.on({
-                click: function(e) {
+                click: function (e) {
                     console.log(e.type + ': ' + e.target.feature.id);
                     console.log(e.target.feature);
                     if (null !== selected_layer) {
-                        selected_layer.setStyle(getRoadStyle(e.target.feature.properties.claim_type));
+                        selected_layer.setStyle(
+                            getRoadStyle(e.target.feature.properties.claim_type)
+                        );
                     }
 
                     selected_layer = layer;
@@ -139,20 +138,20 @@ $(document).ready(function() {
 
     // map events
 
-    map.on('load', function(e) {
+    map.on('load', function (e) {
         reportUpdate(e);
         // map.on('zoomend', function(e) {
         //     reportUpdate(e);
         // });
-        map.on('movestart', function(e) {
+        map.on('movestart', function (e) {
             reportUpdate(e);
             clearRoads();
         });
-        map.on('moveend', function(e) {
+        map.on('moveend', function (e) {
             reportUpdate(e);
             renderRoads();
         });
-        map.on('resize', function(e) {
+        map.on('resize', function (e) {
             reportUpdate(e);
             clearRoads();
             renderRoads();
@@ -180,7 +179,9 @@ $(document).ready(function() {
 
         L.marker(e.latlng)
             .addTo(map)
-            .bindPopup('You seem to be around ' + radius + 'm from this location')
+            .bindPopup(
+                'You seem to be around ' + radius + 'm from this location'
+            )
             .openPopup();
         L.circle(e.latlng, radius).addTo(map);
         renderRoads();
@@ -201,20 +202,19 @@ $(document).ready(function() {
             'https://api.coronafriend.test/v1/roads?bounds=' +
             bounds.toBBoxString();
         fetch(url)
-            .then(function(response) {
+            .then(function (response) {
                 return response.json();
             })
-            .then(function(json) {
+            .then(function (json) {
                 road_layer.addData(json);
             })
-            .catch(function(ex) {
+            .catch(function (ex) {
                 console.log('parsing failed', ex);
             });
     }
 
     map.on('locationfound', onLocationFound);
 
-// $(document).ready(function() {
     // ----------------------------------------------------------------------------
     //
     //  Toogle street infos
@@ -238,20 +238,17 @@ $(document).ready(function() {
     // ----------------------------------------------------------------------------
 
     function searchPostode(postcode) {
-        // TODO: URL
-        var url = 'https://api.coronafriend.test/v1/postcode/' + encodeURIComponent(postcode);
+        var url =
+            'https://api.coronafriend.test/v1/postcode/' +
+            encodeURIComponent(postcode);
         fetch(url)
-            .then(function(response) {
+            .then(function (response) {
                 return response.json();
             })
-            .then(function(json) {
-                // TODO: remove hardcoded result
-                // json.features = [
-                //     { geometry: { coordinates: [-0.202159, 51.531403] } },
-                // ];
+            .then(function (json) {
                 // check geosjon with features
                 if (!json.features) {
-                    $();
+                    $(); // TODO: handle error 404
                 }
                 //
                 var features = json.features;
@@ -264,37 +261,36 @@ $(document).ready(function() {
                     renderRoads();
                 }
             })
-            .catch(function(ex) {
-                console.log('parsing failed', ex);
+            .catch(function (ex) {
+                console.log('Search postcode failed', ex);
             });
     }
 
-    /* Highlight search box text on click */
-    $('#postcode-input').click(function() {
+    // Highlight search box text on click
+    $('#postcode-input').click(function () {
         $(this).select();
     });
-    $('#map-postcode-input').click(function() {
+    $('#map-postcode-input').click(function () {
         $(this).select();
     });
 
-    /* Prevent hitting enter from refreshing the page */
-    $('#postcode-input').keypress(function(e) {
+    // Prevent hitting enter from refreshing the page
+    $('#postcode-input').keypress(function (e) {
         if (e.which === 13) {
             e.preventDefault();
         }
     });
-    $('#map-postcode-input').keypress(function(e) {
+    $('#map-postcode-input').keypress(function (e) {
         if (e.which === 13) {
             e.preventDefault();
         }
     });
-
-    $('#map-postcode-input').dblclick(function(e) {
-        // e.preventDefault();
+    // Prevent duble click on input text which is interpreted as a zoom-in
+    $('#map-postcode-input').dblclick(function (e) {
         e.stopPropagation();
     });
 
-    $('#map-search-postcode').click(function(e) {
+    $('#map-search-postcode').click(function (e) {
         e.preventDefault();
         console.log('search postcode');
         var postcode = $('#map-postcode-input').val();
@@ -304,7 +300,7 @@ $(document).ready(function() {
         return false;
     });
 
-    $('#search-postcode').click(function(e) {
+    $('#search-postcode').click(function (e) {
         e.preventDefault();
         console.log('search postcode');
         var postcode = $('#postcode-input').val();
@@ -320,7 +316,7 @@ $(document).ready(function() {
     //
     // ----------------------------------------------------------------------------
 
-    $('#about-btn').click(function() {
+    $('#about-btn').click(function () {
         $('#aboutModal').modal('show');
         $('.navbar-collapse.in').collapse('hide');
         return false;
@@ -332,7 +328,7 @@ $(document).ready(function() {
     //
     // ----------------------------------------------------------------------------
 
-    $(window).scroll(function() {
+    $(window).scroll(function () {
         if ($(this).scrollTop() > 50) {
             $('#back-to-top').fadeIn();
         } else {
@@ -340,7 +336,7 @@ $(document).ready(function() {
         }
     });
     // scroll body to 0px on click
-    $('#back-to-top').click(function() {
+    $('#back-to-top').click(function () {
         $('body,html').animate(
             {
                 scrollTop: 0,
@@ -349,4 +345,4 @@ $(document).ready(function() {
         );
         return false;
     });
-});
+}); // end document ready
