@@ -2,7 +2,7 @@
 
 sass = require('node-sass');
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
     grunt.initConfig({
@@ -17,7 +17,8 @@ module.exports = function(grunt) {
         compress: {
             dist: {
                 options: {
-                    archive: '<%= dirs.dist %><%= pkg.name %>-<%= pkg.version %>.tar.gz',
+                    archive:
+                        '<%= dirs.dist %><%= pkg.name %>-<%= pkg.version %>.tar.gz',
                     mode: 'tgz',
                 },
                 files: [
@@ -54,14 +55,15 @@ module.exports = function(grunt) {
                         cwd: 'src/images',
                         src: ['**/*.png'],
                         dest: '<%= dirs.public %>/assets/images/',
-                    }
-                ]
+                    },
+                ],
             },
             fonts: {
                 files: [
                     {
                         expand: true,
-                        cwd: './node_modules/@fortawesome/fontawesome-free/webfonts',
+                        cwd:
+                            './node_modules/@fortawesome/fontawesome-free/webfonts',
                         src: ['**/*'],
                         dest: '<%= dirs.public %>/assets/fonts/',
                     },
@@ -81,42 +83,46 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: './node_modules/@coronafriend/coronafriend-assets/favicons',
+                        cwd:
+                            './node_modules/@coronafriend/coronafriend-assets/favicons',
                         src: ['**/*.png', '**/*.ico'],
-                        dest: '<%= dirs.public %>/assets/favicons'
-                    }
-                ]
+                        dest: '<%= dirs.public %>/assets/favicons',
+                    },
+                ],
             },
             icons: {
                 files: [
                     {
                         expand: true,
-                        cwd: './node_modules/@coronafriend/coronafriend-assets/site-icons',
+                        cwd:
+                            './node_modules/@coronafriend/coronafriend-assets/site-icons',
                         src: ['**/*.png', '**/*.svg'],
-                        dest: '<%= dirs.public %>/assets/icons'
-                    }
-                ]
+                        dest: '<%= dirs.public %>/assets/icons',
+                    },
+                ],
             },
             logos: {
                 files: [
                     {
                         expand: true,
-                        cwd: './node_modules/@coronafriend/coronafriend-assets/logos',
+                        cwd:
+                            './node_modules/@coronafriend/coronafriend-assets/logos',
                         src: ['**/*.png', '**/*.svg'],
-                        dest: '<%= dirs.public %>/assets/logos'
-                    }
-                ]
+                        dest: '<%= dirs.public %>/assets/logos',
+                    },
+                ],
             },
             leaflets: {
                 files: [
                     {
                         expand: true,
-                        cwd: './node_modules/@coronafriend/coronafriend-assets/leaflets',
+                        cwd:
+                            './node_modules/@coronafriend/coronafriend-assets/leaflets',
                         src: ['**/*.pdf'],
-                        dest: '<%= dirs.public %>/assets/leaflets'
-                    }
-                ]
-            }
+                        dest: '<%= dirs.public %>/assets/leaflets',
+                    },
+                ],
+            },
         },
         sass: {
             options: {
@@ -133,7 +139,8 @@ module.exports = function(grunt) {
             },
             site: {
                 files: {
-                    '<%= dirs.public %>/assets/css/site.css': 'src/sass/site.scss',
+                    '<%= dirs.public %>/assets/css/site.css':
+                        'src/sass/site.scss',
                 },
             },
         },
@@ -192,17 +199,17 @@ module.exports = function(grunt) {
     ]);
     grunt.registerTask('rebuild', ['clean', 'build']);
     grunt.registerTask('dist', ['rebuild', 'compress']);
-    grunt.registerTask('nodsstore', function() {
+    grunt.registerTask('nodsstore', function () {
         grunt.file
-        .expand(
-            {
-                filter: 'isFile',
-                cwd: '.',
-            },
-            ['**/.DS_Store']
-        )
-        .forEach(function(file) {
-            grunt.file.delete(file);
-        });
+            .expand(
+                {
+                    filter: 'isFile',
+                    cwd: '.',
+                },
+                ['**/.DS_Store']
+            )
+            .forEach(function (file) {
+                grunt.file.delete(file);
+            });
     });
 };

@@ -4,8 +4,9 @@
   "description": "The source for www.coronafriend.com",
   "main": "index.js",
   "scripts": {
-    "start": "grunt",
     "build": "grunt build",
+    "prettier": "prettier --write .",
+    "start": "grunt",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

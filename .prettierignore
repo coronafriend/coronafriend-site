@@ -1,1 +1,5 @@
 *.scss
+*.json
+*.html
+dist/
+node_modules/

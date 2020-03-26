@@ -9,19 +9,19 @@ COVID-19 crisis.
 
 tech used:
 
-- node
-- sass
+-   node
+-   sass
 
 frameworks used:
 
-- bootstrap
-- fontawesome
-- leaflet
+-   bootstrap
+-   fontawesome
+-   leaflet
 
 Thrird party lib used:
 
-- leaflet.locatecontrol
-- mapbox-gl for leaflet
+-   leaflet.locatecontrol
+-   mapbox-gl for leaflet
 
 ### setup
 
