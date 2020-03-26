@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/coronafriend/coronafriend-site#readme",
   "dependencies": {
+    "@coronafriend/coronafriend-assets": "github:coronafriend/coronafriend-assets",
     "@fortawesome/fontawesome-free": "^5.12.1",
     "bootstrap": "^4.4.1",
     "grunt": "^1.1.0",

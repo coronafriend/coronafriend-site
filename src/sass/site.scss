@@ -43,8 +43,14 @@ footer {
     }
 }
 
+.download {
+    img {
+        width: 15%;
+    }
+}
+
 .back-to-top {
-    position: fixed;    
+    position: fixed;
     bottom: 25px;
     right: 25px;
     display: none;
@@ -54,13 +60,13 @@ footer {
 
 .leaflet-top.leaflet-right {
     a {
-        padding-top: 6px;        
+        padding-top: 6px;
         width: 52px;
         height: 52px;
         line-height: 52px;
     }
 }
-    
+
 .find-postcode {
     right: 70px;
 }
@@ -73,7 +79,7 @@ footer {
 
 #map {
     min-height: 750px;
-}    
+}
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) {
@@ -83,12 +89,12 @@ footer {
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
 
-    
+
 }
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) {
-    
+
 
 }
 
