@@ -6,7 +6,7 @@ files:
     destination: /var/www/html
 
   # Copy build files into app build area
-  - source: /public
+  - source: /dist/coronafriend-site/public
     destination: /var/www/domains/%CORONAFRIEND_DOMAIN%/public
 
   # Nginx VHOST

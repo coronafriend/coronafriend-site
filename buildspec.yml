@@ -39,7 +39,7 @@ artifacts:
     - src/**/*
     - config/**/*
     - scripts/**/*
-    - public/**/*
+    - dist/**/*
 cache:
   paths:
     - "/root/.npm/**/*"
