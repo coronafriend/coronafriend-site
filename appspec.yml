@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   # Copy "Healthy" html to default vhost root for load balancer
-  - source: /config/index.html
+  - source: /config/%CORONAFRIEND_DOMAIN%.html
     destination: /var/www/html/%CORONAFRIEND_DOMAIN%.html
 
   # Copy build files into app build area
@@ -10,8 +10,8 @@ files:
     destination: /var/www/domains/%CORONAFRIEND_DOMAIN%/public
 
   # Nginx VHOST
-  - source: /config/nginx.conf
-    destination: /etc/nginx/sites-available/00-%CORONAFRIEND_DOMAIN%.conf
+  - source: /config/00-%CORONAFRIEND_DOMAIN%.conf
+    destination: /etc/nginx/sites-available/
 
 hooks:
   BeforeInstall:

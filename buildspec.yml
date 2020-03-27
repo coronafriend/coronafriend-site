@@ -24,6 +24,10 @@ phases:
 
       # Sets up the product site scripts and styles
       - npm run build
+  build:
+    commands:
+      - mv config/nginx.conf config/00-${CORONAFRIEND_DOMAIN}.conf
+      - mv config/index.html config/${CORONAFRIEND_DOMAIN}.html
   post_build:
     commands:
       - echo Build completed on `date`
