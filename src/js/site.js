@@ -328,7 +328,7 @@ $(document).ready(function () {
 
     $('#about-btn').click(function () {
         $('#aboutModal').modal('show');
-        $('.navbar-collapse.in').collapse('hide');
+        $('.navbar-collapse').collapse('hide');
         return false;
     });
 
