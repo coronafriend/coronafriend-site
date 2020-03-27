@@ -10,7 +10,7 @@ phases:
       - git --version
 
       # Base parameters - for debugging purposes and env vars use in scripts and config.
-      - bash scripts/build_parameters
+      - bash build_parameters
 
       # Lock npm to v5
       - npm install -g npm@6.8.0
