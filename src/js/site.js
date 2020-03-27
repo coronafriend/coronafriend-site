@@ -79,8 +79,8 @@ $(document).ready(function () {
         onEachFeature: function (feature, layer) {
             layer.on({
                 click: function (e) {
-                    console.log(e.type + ': ' + e.target.feature.id);
-                    console.log(e.target.feature);
+                    // console.log(e.type + ': ' + e.target.feature.id);
+                    // console.log(e.target.feature);
                     if (null !== selected_layer) {
                         selected_layer.setStyle(
                             getRoadStyle(e.target.feature.properties.claim_type)
@@ -162,19 +162,19 @@ $(document).ready(function () {
         var ctr = map.getCenter();
         var zoom = map.getZoom();
         var bounds = map.getBounds();
-        console.log(
-            e.type +
-                ': zoom: ' +
-                zoom +
-                ': ctr: ' +
-                ctr.toString() +
-                ': bounds: ' +
-                bounds.toBBoxString()
-        );
+        // console.log(
+        //     e.type +
+        //         ': zoom: ' +
+        //         zoom +
+        //         ': ctr: ' +
+        //         ctr.toString() +
+        //         ': bounds: ' +
+        //         bounds.toBBoxString()
+        // );
     }
 
     function onLocationFound(e) {
-        console.log('locationFound fired');
+        // console.log('locationFound fired');
         var radius = e.accuracy;
 
         L.marker(e.latlng)
@@ -194,12 +194,12 @@ $(document).ready(function () {
     function renderRoads() {
         var zoom = map.getZoom();
         if (zoom < 15) {
-            console.log('Zoom ' + zoom + ' - skipping rendering');
+            // console.log('Zoom ' + zoom + ' - skipping rendering');
             return;
         }
         var bounds = map.getBounds();
         var url =
-            'https://api.coronafriend.test/v1/roads?bounds=' +
+            'https://api.coronafriend.com/v1/roads?bounds=' +
             bounds.toBBoxString();
         fetch(url)
             .then(function (response) {
@@ -240,16 +240,16 @@ $(document).ready(function () {
     function searchPostode(postcode) {
         $('#error-message').text('');
         var url =
-            'https://api.coronafriend.test/v1/postcode/' +
+            'https://api.coronafriend.com/v1/postcode/' +
             encodeURIComponent(postcode);
-        console.log('fetch url', url);
+        // console.log('fetch url', url);
         fetch(url)
             .then(function (response) {
-                console.log('fetch response', response);
+                // console.log('fetch response', response);
                 return response.json();
             })
             .then(function (json) {
-                console.log('fetch json response', json);
+                // console.log('fetch json response', json);
                 // check geosjon with features
                 if (!json.features) {
                     $('#error-message').text('Postcode not found');
@@ -268,7 +268,7 @@ $(document).ready(function () {
                 }
             })
             .catch(function (ex) {
-                console.log('Search postcode failed', ex);
+                // console.log('Search postcode failed', ex);
                 $('#error-message').text('Search postcode failed');
                 $('#errorModal').modal('show');
             });
@@ -300,10 +300,10 @@ $(document).ready(function () {
 
     $('#map-search-postcode').click(function (e) {
         e.preventDefault();
-        console.log('search postcode clicked');
+        // console.log('search postcode clicked');
         var postcode = $('#map-postcode-input').val();
         if (!!postcode) {
-            console.log('postcode', postcode);
+            // console.log('postcode', postcode);
             searchPostode(postcode);
         }
         return false;
@@ -311,10 +311,10 @@ $(document).ready(function () {
 
     $('#search-postcode').click(function (e) {
         e.preventDefault();
-        console.log('search postcode (small screen) clicked');
+        // console.log('search postcode (small screen) clicked');
         var postcode = $('#postcode-input').val();
         if (!!postcode) {
-            console.log('postcode', postcode);
+            // console.log('postcode', postcode);
             searchPostode(postcode);
         }
         return false;
