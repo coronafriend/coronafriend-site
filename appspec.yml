@@ -3,7 +3,7 @@ os: linux
 files:
   # Copy "Healthy" html to default vhost root for load balancer
   - source: /config/%CORONAFRIEND_DOMAIN%.html
-    destination: /var/www/html/%CORONAFRIEND_DOMAIN%.html
+    destination: /var/www/html/
 
   # Copy build files into app build area
   - source: /dist/coronafriend-site/public
