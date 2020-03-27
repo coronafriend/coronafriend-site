@@ -20,7 +20,7 @@ phases:
       - npm install --ignore-scripts --only=production
 
       # Sets up the product site scripts and styles
-      - npm run deploy
+      - npm run build
   build:
     commands:
       - mv config/nginx.conf config/00-${CORONAFRIEND_DOMAIN}.conf
