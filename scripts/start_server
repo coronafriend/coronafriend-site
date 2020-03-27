@@ -1,5 +1,5 @@
 #!/bin/bash
 
-ln -s /etc/nginx/sites-available/00-%CORONAFRIEND_DOMAIN% /etc/nginx/sites-enabled/
+ln -s /etc/nginx/sites-available/00-${CORONAFRIEND_DOMAIN} /etc/nginx/sites-enabled/
 
 systemctl restart nginx

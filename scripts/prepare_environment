@@ -6,10 +6,10 @@ if [ -f "/var/www/html/%CORONAFRIEND_DOMAIN%.html" ]; then
 fi
 
 # Setup Domain Folders
-if [ ! -d "/srv/%CORONAFRIEND_DOMAIN%" ]; then
-    mkdir -p /srv/%CORONAFRIEND_DOMAIN%
+if [ ! -d "/var/www/domains/%CORONAFRIEND_DOMAIN%" ]; then
+    mkdir -p /var/www/domains/%CORONAFRIEND_DOMAIN%
 fi
 
-if [ ! -d "/srv/%CORONAFRIEND_DOMAIN%/public" ]; then
-    mkdir -p /srv/%CORONAFRIEND_DOMAIN%/public
+if [ ! -d "/var/www/domains/%CORONAFRIEND_DOMAIN%/public" ]; then
+    mkdir -p /var/www/domains/%CORONAFRIEND_DOMAIN%/public
 fi
