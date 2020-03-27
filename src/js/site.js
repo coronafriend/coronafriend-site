@@ -238,22 +238,28 @@ $(document).ready(function () {
     // ----------------------------------------------------------------------------
 
     function searchPostode(postcode) {
+        $('#error-message').text('');
         var url =
             'https://api.coronafriend.test/v1/postcode/' +
             encodeURIComponent(postcode);
+        console.log('fetch url', url);
         fetch(url)
             .then(function (response) {
+                console.log('fetch response', response);
                 return response.json();
             })
             .then(function (json) {
+                console.log('fetch json response', json);
                 // check geosjon with features
                 if (!json.features) {
-                    $(); // TODO: handle error 404
+                    $('#error-message').text('Postcode not found');
+                    $('#errorModal').modal('show');
+                    return false;
                 }
                 //
                 var features = json.features;
                 if (features && features.length > 1) {
-                    // TODO: multiple pin on the map ? or display list of results ?
+                    // TODO: get bounding box from features
                 } else {
                     var feature = features[0];
                     var coordinates = feature.geometry.coordinates;
@@ -263,6 +269,8 @@ $(document).ready(function () {
             })
             .catch(function (ex) {
                 console.log('Search postcode failed', ex);
+                $('#error-message').text('Search postcode failed');
+                $('#errorModal').modal('show');
             });
     }
 
@@ -292,9 +300,10 @@ $(document).ready(function () {
 
     $('#map-search-postcode').click(function (e) {
         e.preventDefault();
-        console.log('search postcode');
+        console.log('search postcode clicked');
         var postcode = $('#map-postcode-input').val();
         if (!!postcode) {
+            console.log('postcode', postcode);
             searchPostode(postcode);
         }
         return false;
@@ -302,9 +311,10 @@ $(document).ready(function () {
 
     $('#search-postcode').click(function (e) {
         e.preventDefault();
-        console.log('search postcode');
+        console.log('search postcode (small screen) clicked');
         var postcode = $('#postcode-input').val();
         if (!!postcode) {
+            console.log('postcode', postcode);
             searchPostode(postcode);
         }
         return false;
