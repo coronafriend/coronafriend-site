@@ -6,6 +6,7 @@
   "scripts": {
     "build": "grunt build",
     "prettier": "prettier --write .",
+    "serve": "serve dist/coronafriend-site/public",
     "start": "grunt",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -39,6 +40,7 @@
     "mapbox-gl-leaflet": "0.0.11",
     "node-sass": "^4.13.1",
     "popper.js": "^1.16.1",
-    "prettier": "^2.0.2"
+    "prettier": "^2.0.2",
+    "serve": "^11.3.0"
   }
 }

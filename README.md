@@ -36,7 +36,7 @@ $ npm install
 The watch task builds and keeps watching the file changes.
 
 ```
-$ npm start
+$ npm start && npm run serve
 ```
 
 it outputs changes into : `dist/coronafriend-site/public`
