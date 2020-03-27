@@ -116,49 +116,43 @@
       </div>
       <div id="street-wrapper" class="col-md-3 d-none">
         <form action="">
+          <input type="hidden" id="road_id" />
           <table id="" class="table">
             <thead>
               <tr>
-                <th scope="col" class="text-left">Street</th>
-                <th scope="col" class="text-left"><span id="street-name">-</span></th>
+                <th scope="col" class="align-top text-left">Street</th>
+                <th scope="col" class="text-left"><span id="road-name">-</span> <span id="road-number"></span></th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th scope="row" class="text-left">Claim status</th>
-                <td class="text-left"><span id="claim-type">-</span></td>
+                <th scope="row" class="align-middle text-left">Claim status</th>
+                <td class="text-left lead"><span id="claim-type" class="badge badge-secondary">-</span></td>
               </tr>
               <tr>
-                <th scope="row" colspan="2" class="text-left">Info</th>
-              </tr>
-              <tr>
-                <td colspan="2">
-                  <textarea class="form-control" id="road-meta" rows="5" readonly></textarea>
+                <td scope="row" colspan="2" class="align-top text-left">Info
+                  <textarea class="form-control" id="road-meta" rows="13" readonly></textarea>
                 </td>
               </tr>
               <tr>
-                <th scope="row" colspan="2" class="text-left">Your input</th>
-              </tr>
-              <tr>
-                <td colspan="2">
-                  <textarea class="form-control" id="user-meta" rows="3"></textarea>
+                <td scope="row" colspan="2" class="align-top text-left">Your input
+                  <textarea class="form-control" id="user-meta" rows="4"></textarea>
                 </td>
               </tr>
               <tr>
                 <td colspan="2">
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="claim_id3" name="claim_id" class="custom-control-input" value="3" checked
-                      disabled>
-                    <label class="custom-control-label" for="claim_id3">Empty</label>
+                    <input type="radio" id="claim-id-3" name="claim-id" class="custom-control-input" value="3" disabled>
+                    <label class="custom-control-label" for="claim-id-3">Unclaim</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="claim_id2" name="claim_id" class="custom-control-input" value="2">
-                    <label class="custom-control-label" for="claim_id2">Partial
+                    <input type="radio" id="claim-id-2" name="claim-id" class="custom-control-input" value="2">
+                    <label class="custom-control-label" for="claim-id-2">Partial
                     </label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="claim_id1" name="claim_id" class="custom-control-input" value="1">
-                    <label class="custom-control-label" for="claim_id1">Full
+                    <input type="radio" id="claim-id-1" name="claim-id" class="custom-control-input" value="1">
+                    <label class="custom-control-label" for="claim-id-1">Full
                     </label>
                   </div>
                 </td>

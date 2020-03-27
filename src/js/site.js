@@ -91,6 +91,8 @@ $(document).ready(function () {
                     selected_layer.setStyle(road_styles.selected);
 
                     toggleStreetInfo();
+
+                    fillStreetInfo(e.target.feature.properties);
                     // layer.setStyle(hilight_style);
                     // console.log(e);
                 },
@@ -229,6 +231,75 @@ $(document).ready(function () {
 
         map.invalidateSize();
         return false;
+    }
+
+    // ----------------------------------------------------------------------------
+    //
+    //  Claim street
+    //
+    // ----------------------------------------------------------------------------
+
+    $('#claim-button').click(function (e) {
+        e.preventDefault();
+        console.log('claim button clicked');
+        var road_id = $('#road_id').val();
+        var data = {};
+    });
+
+    // ----------------------------------------------------------------------------
+    //
+    //  Street info
+    //
+    // ----------------------------------------------------------------------------
+
+    // "properties": {
+    //     "road_id": "f26d3045cdf80022f97b19c86f743369",
+    //     "claim_id": 3,
+    //     "road_meta": null,
+    //     "road_name": "St John Street",
+    //     "claim_type": "empty",
+    //     "road_number": "B501"
+    // },
+
+    function fillStreetInfo(properties) {
+        $('#road-id').val(properties.road_id);
+        $('#claim-type').removeAttr('class');
+
+        var road_name = properties.road_name || '';
+        var road_number = properties.road_number || '';
+        if (road_number) road_number = '(' + road_number + ')';
+        var road_meta = properties.road_meta || '';
+
+        $('#road-name').text(road_name);
+        $('#road-number').text(road_number);
+        $('#road-meta').val(road_meta);
+
+        $('#claim-id-' + properties.claim_id).prop('checked', true);
+
+        switch (properties.claim_id) {
+            case 1:
+                // fully claimed
+                $('#claim-type').text('fully claimed');
+                $('#claim-type').addClass('badge badge-full');
+                $('#claim-id-2').prop('disabled', true);
+                break;
+
+            case 2:
+                // partially claimed
+                $('#claim-type').text('partially claimed');
+                $('#claim-type').addClass('badge badge-partial');
+                break;
+
+            case 3:
+                // unclaimed
+                $('#claim-type').text('unclaimed');
+                $('#claim-type').addClass('badge badge-empty');
+                break;
+
+            default:
+                $('#claim-type').addClass('badge');
+                break;
+        }
     }
 
     // ----------------------------------------------------------------------------
