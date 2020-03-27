@@ -115,7 +115,7 @@
         </div>
       </div>
       <div id="street-wrapper" class="col-md-3 d-none">
-        <form action="">
+        <form action="" novalidate>
           <input type="hidden" id="road_id" />
           <table id="" class="table">
             <thead>
@@ -135,8 +135,13 @@
                 </td>
               </tr>
               <tr>
-                <td scope="row" colspan="2" class="align-top text-left">Your input
-                  <textarea class="form-control" id="user-meta" rows="4"></textarea>
+                <td scope="row" colspan="2" class="align-top text-left"><label for="user-meta">Your input</label>
+                  <textarea class="form-control" id="user-meta" rows="4" required></textarea>
+                  <!-- <div class="invalid-feedback"> -->
+                  <div id="user-meta-error" class="d-none text-danger">
+                    Please precise your claim
+                  </div>
+                  <label id="user-meta-error" class="error d-none" for="user-meta"></label>
                 </td>
               </tr>
               <tr>
@@ -160,6 +165,7 @@
             </tbody>
           </table>
           <button id="claim-button" class="btn btn-primary ml-1" type="submit">Claim</button>
+          <div id="form-sucess-feedaback" class="text-primary d-none">Sucess, thanks for your help!</div>
         </form>
       </div>
     </div>

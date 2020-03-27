@@ -201,7 +201,7 @@ $(document).ready(function () {
         }
         var bounds = map.getBounds();
         var url =
-            'https://api.coronafriend.test/v1/roads?bounds=' +
+            'https://api.coronafriend.com/v1/roads?bounds=' +
             bounds.toBBoxString();
         fetch(url)
             .then(function (response) {
@@ -239,11 +239,62 @@ $(document).ready(function () {
     //
     // ----------------------------------------------------------------------------
 
+    function postRoad(road_id, data) {
+        var url = 'https://api.coronafriend.com/v1/roads/' + road_id;
+        var url = 'https://httpbin.org/post'; // + road_id;
+        return fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            redirect: 'follow',
+            body: JSON.stringify(data),
+        });
+    }
+
+    function getFormData(user_input) {
+        var road_id = $('#road_id').val();
+        var claim_id = $('input[name="claim-id"]:checked').val();
+        var road_meta = $('#road-meta').val() + '\n' + user_input;
+
+        return {
+            road_id: road_id,
+            claim_id: claim_id,
+            road_meta: road_meta,
+        };
+    }
+
     $('#claim-button').click(function (e) {
         e.preventDefault();
         console.log('claim button clicked');
-        var road_id = $('#road_id').val();
-        var data = {};
+        // check values
+        var user_input = $('#user-meta').val();
+        if (!user_input) {
+            $('#user-meta-error').removeClass('d-none');
+            return;
+        }
+        $('#error-message').text('');
+
+        console.log(data);
+        // submit values
+        var data = getFormData(user_input);
+
+        postRoad(road_id, data)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (json) {
+                console.log('POST Road result', json);
+                // TODO: refresh street info
+                // in the meantime:
+                $('#user-meta-error').addClass('d-none');
+                $('#form-sucess-feedaback').removeClass('d-none');
+            })
+            .catch(function (ex) {
+                console.log('POST failed', ex);
+                $('#error-message').text('Road/Street Claim failed');
+                $('#errorModal').modal('show');
+            });
     });
 
     // ----------------------------------------------------------------------------
@@ -264,6 +315,8 @@ $(document).ready(function () {
     function fillStreetInfo(properties) {
         $('#road-id').val(properties.road_id);
         $('#claim-type').removeAttr('class');
+        $('#user-meta-error').addClass('d-none');
+        $('#form-sucess-feedaback').addClass('d-none');
 
         var road_name = properties.road_name || '';
         var road_number = properties.road_number || '';
@@ -311,7 +364,7 @@ $(document).ready(function () {
     function searchPostode(postcode) {
         $('#error-message').text('');
         var url =
-            'https://api.coronafriend.test/v1/postcode/' +
+            'https://api.coronafriend.com/v1/postcode/' +
             encodeURIComponent(postcode);
         console.log('fetch url', url);
         fetch(url)
