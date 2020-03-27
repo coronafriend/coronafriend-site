@@ -9,8 +9,11 @@ phases:
       - aws --version
       - git --version
 
+      # Base parameters - for debugging purposes and env vars use in scripts and config.
+      - bash scripts/build_parameters
+
       # Lock npm to v5
-      - npm install -g npm@5.6.0
+      - npm install -g npm@6.8.0
       - npm install -g semver
 
       # A weird issue that appears in CodeBuild is that there is no mkdirp, whereas this is
@@ -34,6 +37,7 @@ artifacts:
     - package.json
     - Gruntfile.js
     - src/**/*
+    - public/**/*
 cache:
   paths:
     - "/root/.npm/**/*"

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Remove existing %CORONAFRIEND_DOMAIN%.html File
+if [ -f "/var/www/html/%CORONAFRIEND_DOMAIN%.html" ]; then
+    rm -f /var/www/html/%CORONAFRIEND_DOMAIN%.html
+fi
+
+# Setup Domain Folders
+if [ ! -d "/srv/%CORONAFRIEND_DOMAIN%" ]; then
+    mkdir -p /srv/%CORONAFRIEND_DOMAIN%
+fi
+
+if [ ! -d "/srv/%CORONAFRIEND_DOMAIN%/public" ]; then
+    mkdir -p /srv/%CORONAFRIEND_DOMAIN%/public
+fi
