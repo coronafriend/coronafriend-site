@@ -37,6 +37,8 @@ artifacts:
     - package.json
     - Gruntfile.js
     - src/**/*
+    - config/**/*
+    - scripts/**/*
     - public/**/*
 cache:
   paths:
