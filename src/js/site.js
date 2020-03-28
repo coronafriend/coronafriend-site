@@ -239,11 +239,11 @@ $(document).ready(function () {
     //
     // ----------------------------------------------------------------------------
 
-    function postRoad(road_id, data) {
+    function putRoad(road_id, data) {
         var url = 'https://api.coronafriend.com/v1/roads/' + road_id;
-        var url = 'https://httpbin.org/post'; // + road_id;
+        // var url = 'https://httpbin.org/post'; // + road_id;
         return fetch(url, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -279,7 +279,7 @@ $(document).ready(function () {
         // submit values
         var data = getFormData(user_input);
 
-        postRoad(road_id, data)
+        putRoad(road_id, data)
             .then(function (response) {
                 return response.json();
             })
