@@ -43,6 +43,18 @@ footer {
 //     vertical-align: middle;
 }
 
+.badge-empty {
+    background-color: $secondary-light;
+}
+
+.badge-partial {
+    background-color: $third-color;
+}
+
+.badge-full {
+    background-color: $primary-light;
+}
+
 .postcard {
     img {
         width: 75%;
