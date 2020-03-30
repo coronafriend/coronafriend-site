@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    var API_BASEURL = 'https://api.coronafriend.com';
+
     // ----------------------------------------------------------------------------
     //
     //  MAP
@@ -45,23 +47,23 @@ $(document).ready(function () {
             opacity: 0.65,
         },
         selected: {
-            color: '#F08D88',
-            weight: 15,
+            // color: '#F08D88',
+            weight: 20,
             opacity: 1.0,
         },
     };
 
-    function getRoadStyle(claim_type) {
+    function getRoadStyle(claim_id) {
         var style = {};
-        switch (claim_type) {
-            case 'empty':
-                style = road_styles.empty;
+        switch (claim_id) {
+            case 1:
+                style = road_styles.full;
                 break;
-            case 'partial':
+            case 2:
                 style = road_styles.partial;
                 break;
-            case 'full':
-                style = road_styles.full;
+            case 3:
+                style = road_styles.empty;
                 break;
             default:
                 style = road_styles.empty;
@@ -74,16 +76,14 @@ $(document).ready(function () {
 
     var road_layer = L.geoJSON(null, {
         style: function (feature) {
-            return getRoadStyle(feature.properties.claim_type);
+            return getRoadStyle(feature.properties.claim_id);
         },
         onEachFeature: function (feature, layer) {
             layer.on({
                 click: function (e) {
-                    // console.log(e.type + ': ' + e.target.feature.id);
-                    // console.log(e.target.feature);
                     if (null !== selected_layer) {
                         selected_layer.setStyle(
-                            getRoadStyle(e.target.feature.properties.claim_type)
+                            getRoadStyle(e.target.feature.properties.claim_id)
                         );
                     }
 
@@ -93,18 +93,7 @@ $(document).ready(function () {
                     toggleStreetInfo();
 
                     fillStreetInfo(e.target.feature.properties);
-                    // layer.setStyle(hilight_style);
-                    // console.log(e);
-                },
-                // mouseover: function(e) {
-                //     console.log(e.type + ': ' + e.target.feature.id);
-                //     console.log(e);
-                //     // layer.setStyle(hilight_style);
-                // },
-                // mouseout: function(e) {
-                //     console.log(e.type + ': ' + e.target.feature.id);
-                //     // layer.setStyle(road_style);
-                // },
+                }
             });
         },
     }).addTo(map);
@@ -128,8 +117,6 @@ $(document).ready(function () {
         maxZoom: 17,
     };
 
-    // map.locate(locate_options);
-
     var lc = L.control
         .locate({
             position: 'topright',
@@ -141,42 +128,19 @@ $(document).ready(function () {
     // map events
 
     map.on('load', function (e) {
-        reportUpdate(e);
-        // map.on('zoomend', function(e) {
-        //     reportUpdate(e);
-        // });
         map.on('movestart', function (e) {
-            reportUpdate(e);
             clearRoads();
         });
         map.on('moveend', function (e) {
-            reportUpdate(e);
             renderRoads();
         });
         map.on('resize', function (e) {
-            reportUpdate(e);
             clearRoads();
             renderRoads();
         });
     });
 
-    function reportUpdate(e) {
-        var ctr = map.getCenter();
-        var zoom = map.getZoom();
-        var bounds = map.getBounds();
-        // console.log(
-        //     e.type +
-        //         ': zoom: ' +
-        //         zoom +
-        //         ': ctr: ' +
-        //         ctr.toString() +
-        //         ': bounds: ' +
-        //         bounds.toBBoxString()
-        // );
-    }
-
     function onLocationFound(e) {
-        // console.log('locationFound fired');
         var radius = e.accuracy;
 
         L.marker(e.latlng)
@@ -196,12 +160,11 @@ $(document).ready(function () {
     function renderRoads() {
         var zoom = map.getZoom();
         if (zoom < 15) {
-            // console.log('Zoom ' + zoom + ' - skipping rendering');
             return;
         }
         var bounds = map.getBounds();
         var url =
-            'https://api.coronafriend.com/v1/roads?bounds=' +
+            API_BASEURL + '/v1/roads?bounds=' +
             bounds.toBBoxString();
         fetch(url)
             .then(function (response) {
@@ -239,9 +202,8 @@ $(document).ready(function () {
     //
     // ----------------------------------------------------------------------------
 
-    function putRoad(road_id, data) {
-        var url = 'https://api.coronafriend.com/v1/roads/' + road_id;
-        // var url = 'https://httpbin.org/post'; // + road_id;
+    function putRoad(data) {
+        var url = API_BASEURL + '/v1/roads/' + data.road_id;
         return fetch(url, {
             method: 'PUT',
             headers: {
@@ -253,20 +215,22 @@ $(document).ready(function () {
     }
 
     function getFormData(user_input) {
-        var road_id = $('#road_id').val();
+        var road_id = $('#road-id').val();
         var claim_id = $('input[name="claim-id"]:checked').val();
-        var road_meta = $('#road-meta').val() + '\n' + user_input;
+
+        var meta = [];
+        var sanitised_input = user_input.replace(/(<([^>]+)>)/ig,"");
+        meta.push(sanitised_input);
 
         return {
             road_id: road_id,
             claim_id: claim_id,
-            road_meta: road_meta,
+            road_meta: meta
         };
     }
 
     $('#claim-button').click(function (e) {
         e.preventDefault();
-        console.log('claim button clicked');
         $('#form-sucess-feedaback').addClass('d-none');
         // check values
         var user_input = $('#user-meta').val();
@@ -276,24 +240,60 @@ $(document).ready(function () {
         }
         $('#error-message').text('');
 
-        console.log(data);
         // submit values
         var data = getFormData(user_input);
-
-        putRoad(road_id, data)
+        putRoad(data)
             .then(function (response) {
                 return response.json();
             })
             .then(function (json) {
-                console.log('POST Road result', json);
-                // TODO: refresh street info
-
-                // in the meantime:
                 $('#user-meta-error').addClass('d-none');
-                $('#form-sucess-feedaback').removeClass('d-none');
+                $('#form-success-feedback').removeClass('d-none');
+
+                if (json.road_meta) {
+                    var road_meta = json.road_meta.join('\n');
+                    $('#road-meta').val(road_meta);
+                }
+
+                $('#user-meta').text('');
+                $('#claim-id-' + json.claim_id).prop('checked', true);
+
+                road_layer.eachLayer(function(layer) {
+                    if (layer.feature.id == json.road_id) {
+                        var style = getRoadStyle(json.claim_id);
+                        layer.setStyle({
+                            color: style.color
+                        });
+                    }
+                });
+
+                switch (json.claim_id) {
+                    case 1:
+                        // fully claimed
+                        $('#claim-type').text('fully claimed');
+                        $('#claim-type').addClass('badge badge-full');
+                        $('#claim-id-2').prop('disabled', true);
+                        break;
+
+                    case 2:
+                        // partially claimed
+                        $('#claim-type').text('partially claimed');
+                        $('#claim-type').addClass('badge badge-partial');
+                        break;
+
+                    case 3:
+                        // unclaimed
+                        $('#claim-type').text('unclaimed');
+                        $('#claim-type').addClass('badge badge-empty');
+                        break;
+
+                    default:
+                        $('#claim-type').addClass('badge');
+                        break;
+                }
             })
             .catch(function (ex) {
-                console.log('POST failed', ex);
+                console.log('PUT failed', ex);
                 $('#error-message').text('Road/Street Claim failed');
                 $('#errorModal').modal('show');
             });
@@ -323,7 +323,11 @@ $(document).ready(function () {
         var road_name = properties.road_name || '';
         var road_number = properties.road_number || '';
         if (road_number) road_number = '(' + road_number + ')';
-        var road_meta = properties.road_meta || '';
+
+        var road_meta = '';
+        if (properties.road_meta) {
+            road_meta = properties.road_meta.join('\n');
+        }
 
         $('#road-name').text(road_name);
         $('#road-number').text(road_number);
@@ -366,16 +370,13 @@ $(document).ready(function () {
     function searchPostode(postcode) {
         $('#error-message').text('');
         var url =
-            'https://api.coronafriend.com/v1/postcode/' +
+            API_BASEURL + '/v1/postcode/' +
             encodeURIComponent(postcode);
-        // console.log('fetch url', url);
         fetch(url)
             .then(function (response) {
-                // console.log('fetch response', response);
                 return response.json();
             })
             .then(function (json) {
-                // console.log('fetch json response', json);
                 // check geosjon with features
                 if (!json.features) {
                     $('#error-message').text('Postcode not found');
@@ -386,7 +387,8 @@ $(document).ready(function () {
                 var features = json.features;
                 if (features && features.length > 1) {
                     // TODO: get bounding box from features
-                } else {
+                }
+                else {
                     var feature = features[0];
                     var coordinates = feature.geometry.coordinates;
                     map.setView([coordinates[1], coordinates[0]], 17);
@@ -394,7 +396,6 @@ $(document).ready(function () {
                 }
             })
             .catch(function (ex) {
-                // console.log('Search postcode failed', ex);
                 $('#error-message').text('Search postcode failed');
                 $('#errorModal').modal('show');
             });
@@ -426,10 +427,8 @@ $(document).ready(function () {
 
     $('#map-search-postcode').click(function (e) {
         e.preventDefault();
-        // console.log('search postcode clicked');
         var postcode = $('#map-postcode-input').val();
         if (!!postcode) {
-            // console.log('postcode', postcode);
             searchPostode(postcode);
         }
         return false;
@@ -437,10 +436,8 @@ $(document).ready(function () {
 
     $('#search-postcode').click(function (e) {
         e.preventDefault();
-        // console.log('search postcode (small screen) clicked');
         var postcode = $('#postcode-input').val();
         if (!!postcode) {
-            // console.log('postcode', postcode);
             searchPostode(postcode);
         }
         return false;
