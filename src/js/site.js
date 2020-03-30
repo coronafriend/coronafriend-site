@@ -267,6 +267,7 @@ $(document).ready(function () {
     $('#claim-button').click(function (e) {
         e.preventDefault();
         console.log('claim button clicked');
+        $('#form-sucess-feedaback').addClass('d-none');
         // check values
         var user_input = $('#user-meta').val();
         if (!user_input) {
@@ -286,6 +287,7 @@ $(document).ready(function () {
             .then(function (json) {
                 console.log('POST Road result', json);
                 // TODO: refresh street info
+
                 // in the meantime:
                 $('#user-meta-error').addClass('d-none');
                 $('#form-sucess-feedaback').removeClass('d-none');
