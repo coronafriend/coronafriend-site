@@ -1,5 +1,8 @@
 $(document).ready(function () {
-    var API_BASEURL = 'https://api.coronafriend.com';
+    if ($('#map').length == 0) {
+        return;
+    }
+    var API_BASEURL = 'https://api.coronafriend.test';
 
     // ----------------------------------------------------------------------------
     //
@@ -107,7 +110,8 @@ $(document).ready(function () {
     }).addTo(map);
 
     map.attributionControl.addAttribution(
-        'Contains OS data &copy; Crown copyright and database rights 2018'
+        '<a href="https://www.ons.gov.uk/">Office for National Statistics</a>, licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Local Government License v3.0</a>. ' +
+        'Contains OS data &copy; Crown copyright and database rights 2020'
     );
 
     // locate control
@@ -440,18 +444,6 @@ $(document).ready(function () {
         if (!!postcode) {
             searchPostode(postcode);
         }
-        return false;
-    });
-
-    // ----------------------------------------------------------------------------
-    //
-    //  About button click
-    //
-    // ----------------------------------------------------------------------------
-
-    $('#about-btn').click(function () {
-        $('#aboutModal').modal('show');
-        $('.navbar-collapse').collapse('hide');
         return false;
     });
 
