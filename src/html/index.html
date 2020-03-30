@@ -57,7 +57,7 @@
           <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="about-btn" href="#">About</a>
+          <a class="nav-link" href="/about.html">About</a>
         </li>
     </div>
   </nav>
@@ -79,8 +79,12 @@
       <div class="col" id="step-one">
         <h2 class="text-secondary">Step One</h2>
         <p>Claim and mark your road on the map below so people know whether it's covered or not. Either enter your
-          postcode and click or tap on <em>Search</em> or click or tap on the push pin icon to use your browser's built
+          postcode and click or tap on <em>Search</em> or click or tap on the map push pin icon to use your browser's built
           in geolocation to find your neighbourhood.</p>
+        <p>If you're not able to cover all of your road, just mark it as <em>partially</em> covered. You can also add a note about
+            what you've been up to which other users will see. If you know of any local websites, Facebook groups or other social media
+            links, you can add those in as well.
+        </p>
         <!-- <i class="fas fa-map-marked fa-10x step-icon"></i> -->
         <!-- <div id="find-location">
                     <button type="button" class="btn btn-secondary btn-lg">Find me!</button>
@@ -126,16 +130,16 @@
             </thead>
             <tbody>
               <tr>
-                <th scope="row" class="align-middle text-left">Claim status</th>
+                <th scope="row" class="align-middle text-left">Coverage</th>
                 <td class="text-left lead"><span id="claim-type" class="badge badge-secondary">-</span></td>
               </tr>
               <tr>
-                <td scope="row" colspan="2" class="align-top text-left">Info
+                <td scope="row" colspan="2" class="align-top text-left">Local information
                   <textarea class="form-control" id="road-meta" rows="13" readonly></textarea>
                 </td>
               </tr>
               <tr>
-                <td scope="row" colspan="2" class="align-top text-left"><label for="user-meta">Your input</label>
+                <td scope="row" colspan="2" class="align-top text-left"><label for="user-meta">Add your contribution</label>
                   <textarea class="form-control" id="user-meta" rows="4" required></textarea>
                   <!-- <div class="invalid-feedback"> -->
                   <div id="user-meta-error" class="d-none text-danger">
@@ -148,24 +152,24 @@
                 <td colspan="2">
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="claim-id-3" name="claim-id" class="custom-control-input" value="3" disabled>
-                    <label class="custom-control-label" for="claim-id-3">Unclaim</label>
+                    <label class="custom-control-label" for="claim-id-3">Needs postcards</label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="claim-id-2" name="claim-id" class="custom-control-input" value="2">
-                    <label class="custom-control-label" for="claim-id-2">Partial
+                    <label class="custom-control-label" for="claim-id-2">Partly covered
                     </label>
                   </div>
                   <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="claim-id-1" name="claim-id" class="custom-control-input" value="1">
-                    <label class="custom-control-label" for="claim-id-1">Full
+                    <label class="custom-control-label" for="claim-id-1">Fully covered
                     </label>
                   </div>
                 </td>
               </tr>
             </tbody>
           </table>
-          <button id="claim-button" class="btn btn-primary ml-1" type="submit">Claim</button>
-          <div id="form-success-feedback" class="text-primary d-none">Sucess, thanks for your help!</div>
+          <button id="claim-button" class="btn btn-primary ml-1" type="submit">Update the map</button>
+          <div id="form-success-feedback" class="text-primary d-none">Updated! Thanks for your help!</div>
         </form>
       </div>
     </div>
@@ -200,7 +204,7 @@
           <img src="/assets/icons/envelope-icon.png" />
         </p>
         <!-- <i class="fas fa-door-closed fa-5x text-secondary-light"></i> -->
-        <p>Pop the filled out postcard through your neighbour's door.</p>
+        <p>Pop the filled out postcard through your neighbour's doors!</p>
       </div>
     </div>
 
@@ -268,118 +272,40 @@
   <!-- scroll top button-->
 
 
-  <!-- Footer -->
   <footer class="page-footer font-small primary pt-4 mt-5">
-
-    <!-- Footer Text -->
-    <div class="container-fluid text-center text-md-left">
-
-      <!-- Grid row -->
       <div class="row">
+          <div class="col-md-6 mt-md-0 mt-3">
+              <ul class="list-unstyled list-inline text-center">
+                  <li class="list-inline-item">
+                      <a class="btn-floating mx-1" href="https://twitter.com/coronafriend" target="_blank">
+                          <i class="fab fa-twitter"> </i>
+                      </a>
+                  </li>
+                  <li class="list-inline-item">
+                      <a class="btn-floating mx-1" href="https://www.facebook.com/coronafriend/" target="_blank">
+                          <i class="fab fa-facebook-f"> </i>
+                      </a>
+                  </li>
+              </ul>
+          </div>
 
-        <!-- Grid column -->
-        <div class="col-md-6 mt-md-0 mt-3">
+          <hr class="clearfix w-100 d-md-none pb-3">
 
-          <!-- Content -->
-          <h5 class="text-uppercase font-weight-bold body-color">Footer text 1</h5>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita sapiente sint, nulla, nihil
-            repudiandae commodi voluptatibus corrupti animi sequi aliquid magnam debitis, maxime quam recusandae
-            harum esse fugiat. Itaque, culpa?</p>
-
-        </div>
-        <!-- ./Grid column -->
-
-        <hr class="clearfix w-100 d-md-none pb-3">
-
-        <!-- Grid column -->
-        <div class="col-md-6 mb-md-0 mb-3">
-
-          <!-- Content -->
-          <h5 class="text-uppercase font-weight-bold body-color">Footer text 2</h5>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio deserunt fuga perferendis modi earum
-            commodi aperiam temporibus quod nulla nesciunt aliquid debitis ullam omnis quos ipsam, aspernatur id
-            excepturi hic.</p>
-
-        </div>
-        <!-- ./Grid column -->
-
+          <div class="col-md-6 mt-md-0 mt-3">
+              <ul class="list-unstyled list-inline text-center">
+                  <li class="list-inline-item">
+                      <a class="btn-floating mx-1" href="/privacy.html">
+                          Privacy and Cookies
+                      </a>
+                  </li>
+              </ul>
+          </div>
       </div>
-      <!-- ./Grid row -->
-
-    </div>
-    <!-- ./Footer Text -->
-
-    <!-- Grid row -->
-    <div class="row">
-
-      <!-- Grid column -->
-      <div class="col-md-6 mt-md-0 mt-3">
-
-        <!-- Social buttons -->
-        <ul class="list-unstyled list-inline text-center">
-          <li class="list-inline-item">
-            <a class="btn-floating mx-1">
-              <i class="fab fa-pinterest"> </i>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a class="btn-floating mx-1">
-              <i class="fab fa-twitter"> </i>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a class="btn-floating mx-1">
-              <i class="fab fa-facebook-f"> </i>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a class="btn-floating mx-1">
-              <i class="fab fa-linkedin-in"> </i>
-            </a>
-          </li>
-        </ul>
-        <!-- ./Social buttons -->
-
+      <div class="footer-copyright text-center py-3 bg-primary">
+          Copyright &copy; 2020, <a href="https://coronafriend.com/">CoronaFriend and contributors</a>
       </div>
-      <!-- ./Grid column -->
-
-      <hr class="clearfix w-100 d-md-none pb-3">
-
-      <!-- Grid column -->
-      <div class="col-md-6 mt-md-0 mt-3">
-
-        <!-- Terms and privacy -->
-        <ul class="list-unstyled list-inline text-center">
-          <li class="list-inline-item">
-            <a class="btn-floating mx-1" href="#">
-              Privacy
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a class="btn-floating mx-1" href="#">
-              Terms
-            </a>
-          </li>
-        </ul>
-        <!-- ./Terms and privacy -->
-
-      </div>
-      <!-- ./Grid column -->
-    </div>
-    <!-- ./Grid row -->
-
-    <!-- Copyright -->
-    <div class="footer-copyright text-center py-3 bg-primary">
-      © 2020 Copyright:<a href="https://coronafriend.com/">coronafriend.com</a>
-    </div>
-    <!-- ./Copyright -->
-
   </footer>
-  <!-- ./Footer -->
 
-  <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script> -->
-  <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
   <script src="/assets/js/site.js"></script>
 </body>
 
