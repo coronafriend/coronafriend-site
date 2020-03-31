@@ -20,7 +20,7 @@ $(document).ready(function () {
     if ($('#map').length == 0) {
         return;
     }
-    var API_BASEURL = 'https://api.coronafriend.test';
+    var API_BASEURL = 'https://api.coronafriend.com';
 
     var permaLink = {
         id: undefined
