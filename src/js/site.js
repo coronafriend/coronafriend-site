@@ -1,8 +1,32 @@
 $(document).ready(function () {
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 50) {
+            $('#back-to-top').fadeIn();
+        } else {
+            $('#back-to-top').fadeOut();
+        }
+    });
+    // scroll body to 0px on click
+    $('#back-to-top').click(function () {
+        $('body,html').animate(
+            {
+                scrollTop: 0,
+            },
+            400
+        );
+        return false;
+    });
+
     if ($('#map').length == 0) {
         return;
     }
     var API_BASEURL = 'https://api.coronafriend.test';
+
+    var permaLink = {
+        id: undefined
+    };
+
+    parsePermaLink();
 
     // ----------------------------------------------------------------------------
     //
@@ -95,6 +119,7 @@ $(document).ready(function () {
 
                     toggleStreetInfo();
 
+                    window.location.hash = e.target.feature.id;
                     fillStreetInfo(e.target.feature.properties);
                 }
             });
@@ -144,6 +169,8 @@ $(document).ready(function () {
         });
     });
 
+    renderPermaLink();
+
     function onLocationFound(e) {
         var radius = e.accuracy;
 
@@ -161,7 +188,7 @@ $(document).ready(function () {
         road_layer.clearLayers();
     }
 
-    function renderRoads() {
+    function renderRoads(permalink) {
         var zoom = map.getZoom();
         if (zoom < 15) {
             return;
@@ -176,6 +203,13 @@ $(document).ready(function () {
             })
             .then(function (json) {
                 road_layer.addData(json);
+                if (permalink) {
+                    road_layer.eachLayer(function(layer) {
+                        if (layer.feature.id == permaLink.id) {
+                            layer.fire('click');
+                        }
+                    });
+                }
             })
             .catch(function (ex) {
                 console.log('parsing failed', ex);
@@ -324,7 +358,7 @@ $(document).ready(function () {
         $('#user-meta-error').addClass('d-none');
         $('#form-sucess-feedaback').addClass('d-none');
 
-        var road_name = properties.road_name || '';
+        var road_name = properties.road_name || '(unnamed road)';
         var road_number = properties.road_number || '';
         if (road_number) road_number = '(' + road_number + ')';
 
@@ -333,7 +367,12 @@ $(document).ready(function () {
             road_meta = properties.road_meta.join('\n');
         }
 
-        $('#road-name').text(road_name);
+        var link = $('<a>');
+        link.attr('href', window.location.href);
+        link.text(road_name);
+        $('#road-name').html(link);
+
+        // $('#road-name').text(road_name);
         $('#road-number').text(road_number);
         $('#road-meta').val(road_meta);
 
@@ -453,21 +492,36 @@ $(document).ready(function () {
     //
     // ----------------------------------------------------------------------------
 
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 50) {
-            $('#back-to-top').fadeIn();
-        } else {
-            $('#back-to-top').fadeOut();
+    function parsePermaLink() {
+        var url = window.location.search.substr(1);
+        if (!url) {
+            url = window.location.hash.substr(1);
         }
-    });
-    // scroll body to 0px on click
-    $('#back-to-top').click(function () {
-        $('body,html').animate(
-            {
-                scrollTop: 0,
-            },
-            400
-        );
-        return false;
-    });
+
+        if (url !== '') {
+            permaLink.id = url;
+        }
+    }
+
+    function renderPermaLink() {
+        if (permaLink.id) {
+            var url = API_BASEURL + '/v1/roads/' + permaLink.id;
+            fetch(url)
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(json) {
+                    var coords = json.geometry.coordinates;
+                    var geom = L.GeoJSON.coordsToLatLngs(coords);
+                    var line = L.polyline(geom);
+                    map.fitBounds(line.getBounds(), {
+                        maxZoom: 17
+                    });
+                    renderRoads(true);
+                })
+                .catch (function(e) {
+                    console.log('permalink fetch failed:', e);
+                });
+        }
+    }
 }); // end document ready
