@@ -8,9 +8,10 @@
 @import "bootswatch";
 @import "L.Control.Locate.scss";
 
+@import "leaflet/leaflet";
 @import "overrides/mapbox/mapbox";
 
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700');
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Baloo+2:400,700&display=swap');
 

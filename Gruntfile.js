@@ -56,6 +56,22 @@ module.exports = function (grunt) {
                         src: ['**/*.png'],
                         dest: '<%= dirs.public %>/assets/images/',
                     },
+                    {
+                        expand: true,
+                        cwd: 'node_modules/leaflet/dist/images',
+                        src: ['**/*.png'],
+                        dest: '<%= dirs.public %>/assets/leaflet',
+                        filter: 'isFile',
+                        ext: '.png'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'node_modules/mapbox-gl/src/css/svg',
+                        src: ['**/*.svg'],
+                        dest: '<%= dirs.public %>/assets/mapbox-gl',
+                        filter: 'isFile',
+                        ext: '.svg'
+                    }
                 ],
             },
             fonts: {
@@ -122,6 +138,28 @@ module.exports = function (grunt) {
                         dest: '<%= dirs.public %>/assets/leaflets',
                     },
                 ],
+            },
+            leaflet: {
+                options: {
+                    process: function(content, srcpath) {
+                        // fixup Leaflet image paths ...
+                        return content.replace(/images\//g, '/assets/leaflet/');
+                    }
+                },
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'node_modules/leaflet/dist',
+                        src: ['*.css'],
+                        dest: 'src/sass/leaflet',
+                        filter: 'isFile',
+                        rename: function(dest, src) {
+                            return dest + '/_' + src;
+                        },
+                        ext: '.scss'
+
+                    }
+                ]
             },
         },
         sass: {
