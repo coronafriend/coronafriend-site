@@ -332,7 +332,7 @@ $(document).ready(function () {
             })
             .catch(function (ex) {
                 console.log('PUT failed', ex);
-                $('#error-message').text('Road/Street Claim failed');
+                $('#error-message').text('Oh no! Sorry but that update didn\'t work. Try refreshing your browser and trying again');
                 $('#errorModal').modal('show');
             });
     });
@@ -422,7 +422,7 @@ $(document).ready(function () {
             .then(function (json) {
                 // check geosjon with features
                 if (!json.features) {
-                    $('#error-message').text('Postcode not found');
+                    $('#error-message').text('Oh no! Sorry but that postcode couldn\'t be found.');
                     $('#errorModal').modal('show');
                     return false;
                 }
@@ -439,7 +439,7 @@ $(document).ready(function () {
                 }
             })
             .catch(function (ex) {
-                $('#error-message').text('Search postcode failed');
+                $('#error-message').text('On no! Postcode search failed');
                 $('#errorModal').modal('show');
             });
     }
