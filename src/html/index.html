@@ -2,319 +2,323 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=1">
-  <meta name="description" content="Corona Friend - Support Your Vulnerable Neighbours">
-  <title>Corona Friend</title>
-  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
-  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css">
-  <!-- <link rel="stylesheet"href="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css"> -->
-  <link rel="stylesheet" href="/assets/css/site.css">
-  <link rel="shortcut icon" href="/assets/favicons/favicon.ico">
-  <link rel="apple-touch-icon" sizes="57x57" href="/assets/favicons/apple-icon-57x57.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="/assets/favicons/apple-icon-60x60.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="/assets/favicons/apple-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="76x76" href="/assets/favicons/apple-icon-76x76.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="/assets/favicons/apple-icon-114x114.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="/assets/favicons/apple-icon-120x120.png">
-  <link rel="apple-touch-icon" sizes="144x144" href="/assets/favicons/apple-icon-144x144.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="/assets/favicons/apple-icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-icon-180x180.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicons/android-icon-192x192.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicons/favicon-96x96.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
-  <meta name="msapplication-TileColor" content="#ffffff">
-  <meta name="msapplication-TileImage" content="/assets/favicons/ms-icon-144x144.png">
-  <meta name="theme-color" content="#ffffff">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=1">
+    <meta name="description" content="Corona Friend - Support Your Vulnerable Neighbours">
+    <title>Corona Friend</title>
+    <link rel="stylesheet" href="/assets/css/site.min.css">
+    <link rel="shortcut icon" href="/assets/favicons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/favicons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/favicons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/favicons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/favicons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/favicons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/favicons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/favicons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/favicons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/assets/favicons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
-  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-124887264-6"></script>
-  <script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-124887264-6"></script>
+    <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', 'UA-124887264-6');
-  </script>
+    </script>
 </head>
 
 <body>
-  <!-- NAV BAR -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="/"><img src="/assets/logos/coronafriend-banner-white.svg" height="60"
-        alt="CoronaFriend>" /></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <!-- NAV BAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="/"><img src="/assets/logos/coronafriend-banner-white.svg" height="60" alt="CoronaFriend>" /></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="about-btn" href="#">About</a>
-        </li>
-    </div>
-  </nav>
-  <!-- ./NAV BAR -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about.html">About</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- ./NAV BAR -->
 
-  <!-- CONTAINER -->
-  <div class="container-fluid">
-    <div class="row mt-5">
-      <div class="col">
-        <h1 class="text-primary">Help and connect with your neighbours during COVID-19</h1>
-        <p>COVID-19 is putting everyone at great risk; friends, families and the vulnerable. Everyone lives a few doors
-          away from someone who might need help.</p>
-        <p>Offer your support by posting a Corona Friend postcard through their door. If we all pull together, no-one in
-          the UK will have to face this virus alone.</p>
-      </div>
-    </div>
-
-    <div class="row mt-5">
-      <div class="col" id="step-one">
-        <h2 class="text-secondary">Step One</h2>
-        <p>Claim and mark your road on the map below so people know whether it's covered or not. Either enter your
-          postcode and click or tap on <em>Search</em> or click or tap on the push pin icon to use your browser's built
-          in geolocation to find your neighbourhood.</p>
-        <!-- <i class="fas fa-map-marked fa-10x step-icon"></i> -->
-        <!-- <div id="find-location">
-                    <button type="button" class="btn btn-secondary btn-lg">Find me!</button>
-                </div> -->
-      </div>
-    </div>
-
-    <!-- postcode form for small screens -->
-    <div class="d-xs-block d-sm-none center" action="">
-      <form class="form-inline">
-        <input id="postcode-input" class="form-control" type="search" placeholder="Postcode" aria-label="Search"
-          style="width: 120px;">
-        <button id="search-postcode" class="btn btn-primary ml-1" type="submit">Search</button>
-      </form>
-    </div>
-    <!-- ./small screens -->
-
-    <div class="row mt-2">
-      <div id="map-wrapper" class="col-md-12" id="step-one-plus">
-        <div id="map">
-          <!-- postcode form for bigger screens -->
-          <div class="leaflet-top leaflet-right find-postcode d-none d-sm-block">
-            <div class="leaflet-bar leaflet-control">
-              <form class="form-inline leaflet-control-postcode" action="">
-                <input id="map-postcode-input" class="form-control" type="search" placeholder="Postcode"
-                  aria-label="Search" style="width: 120px;">
-                <button id="map-search-postcode" class="btn btn-primary ml-1" type="submit">Search</button>
-              </form>
+    <!-- CONTAINER -->
+    <div class="container-fluid">
+        <div class="row text-center mt-5">
+            <div class="col">
+                <h1 class="text-primary">Help and connect with your neighbours during COVID-19</h1>
+                <p>COVID-19 is putting everyone at great risk; friends, families and the vulnerable. Everyone lives a few doors away from someone who might need help.</p>
+                <p>Offer your support by posting a Corona Friend postcard through their door. If we all pull together, no-one in the UK will have to face this virus alone.</p>
             </div>
-          </div>
-          <!-- ./bigger screens -->
         </div>
-      </div>
-      <div id="street-wrapper" class="col-md-3 d-none">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">Street</th>
-              <td>Fernhead Road</td>
-            </tr>
-            <tr>
-              <th scope="row">Poscode</th>
-              <td>W9 3ED</td>
-            </tr>
-            <tr>
-              <th scope="row">lorem</th>
-              <td colspan="2">ipsum</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
 
-    <div class="row mt-5">
-      <div class="col-sm" id="step-two">
-        <h2 class="text-secondary">Step Two</h2>
-        <p>Download, print out and fill in the color or black and white Corona Friend postcard.</p>
+        <div class="row text-center mt-5">
+            <div class="col" id="step-one">
+                <h2 class="text-secondary">Step One</h2>
+            </div>
+        </div>
+
         <div class="row">
-          <div class="col-sm-6">
-            <p class="download"><a href="/assets/leaflets/coronafriend-a4-leaflet.pdf" target="_blank"><img
-                  src="/assets/icons/download-icon.png" class="img-fluid" alt="Download" /></a></p>
-            <p class="postcard"><a href="/assets/leaflets/coronafriend-a4-leaflet.pdf" target="_blank"><img
-                  src="/assets/images/coronafriend-a4-leaflet.png" class="img-fluid mx-auto border rounded-lg"
-                  alt="Corona Friend Postcard" /></a></p>
-          </div>
-          <div class="col-sm-6">
-            <p class="download"><a href="/assets/leaflets/coronafriend-a4-leaflet-mono.pdf" target="_blank"><img
-                  src="/assets/icons/download-icon.png" class="img-fluid" alt="Download Black & White" /></a></p>
-            <p class="postcard"><a href="/assets/leaflets/coronafriend-a4-leaflet-mono.pdf" target="_blank"><img
-                  src="/assets/images/coronafriend-a4-leaflet-mono.png" class="img-fluid mx-auto border rounded-lg"
-                  alt="Corona Friend Postcard Black & White" /></a></p>
-          </div>
+            <div class="col">
+                <p>Claim and mark your road on the map below so people know whether it's covered or not. Zoom in to level 15, enter your postcode and click or tap on <em>Search</em> or click or tap on the map push pin icon to use your browser's built in geolocation to find your neighbourhood.</p>
+            </div>
+            <div class="col">
+                <p>If you're not able to cover all of your road, just mark it as <em>partially</em> covered. You can also add a note about what you've been up to which other users will see. If you know of any local websites, Facebook groups or other social media links, you can add those in as well.</p>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div class="row mt-5">
-      <div class="col-sm" id="step-three">
-        <h2 class="text-secondary">Step Three</h2>
-        <p>
-          <img src="/assets/icons/envelope-icon.png" />
-        </p>
-        <!-- <i class="fas fa-door-closed fa-5x text-secondary-light"></i> -->
-        <p>Pop the filled out postcard through your neighbour's door.</p>
-      </div>
-    </div>
-
-  </div>
-  <!-- ./CONTAINER -->
-
-  <!-- Footer -->
-  <footer class="page-footer font-small primary pt-4 mt-5">
-
-    <!-- Footer Text -->
-    <div class="container-fluid text-center text-md-left">
-
-      <!-- Grid row -->
-      <div class="row">
-
-        <!-- Grid column -->
-        <div class="col-md-6 mt-md-0 mt-3">
-
-          <!-- Content -->
-          <h5 class="text-uppercase font-weight-bold body-color">Footer text 1</h5>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita sapiente sint, nulla, nihil
-            repudiandae commodi voluptatibus corrupti animi sequi aliquid magnam debitis, maxime quam recusandae
-            harum esse fugiat. Itaque, culpa?</p>
-
+        <!-- postcode form for small screens -->
+        <div class="d-xs-block d-sm-none">
+            <form class="form-inline" action="">
+                <input id="postcode-input" class="form-control" type="search" placeholder="Postcode" aria-label="Search"
+                style="width: 120px;">
+                <button id="search-postcode" class="btn btn-primary ml-1" type="submit">Search</button>
+            </form>
         </div>
-        <!-- ./Grid column -->
+        <!-- ./small screens -->
 
-        <hr class="clearfix w-100 d-md-none pb-3">
-
-        <!-- Grid column -->
-        <div class="col-md-6 mb-md-0 mb-3">
-
-          <!-- Content -->
-          <h5 class="text-uppercase font-weight-bold body-color">Footer text 2</h5>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio deserunt fuga perferendis modi earum
-            commodi aperiam temporibus quod nulla nesciunt aliquid debitis ullam omnis quos ipsam, aspernatur id
-            excepturi hic.</p>
-
+        <div class="row text-center mt-2">
+            <div id="map-wrapper" class="col-md-12" id="step-one-plus">
+                <div id="map">
+                    <!-- postcode form for bigger screens -->
+                    <div class="leaflet-top leaflet-right find-postcode d-none d-sm-block">
+                        <div class="leaflet-bar leaflet-control">
+                            <form class="form-inline leaflet-control-postcode" action="">
+                                <input id="map-postcode-input" class="form-control" type="search" placeholder="Postcode"
+                                aria-label="Search" style="width: 120px;">
+                                <button id="map-search-postcode" class="btn btn-primary ml-1" type="submit">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- ./bigger screens -->
+                </div>
+            </div>
+            <div id="street-wrapper" class="col-md-3 d-none">
+                <form action="" novalidate>
+                    <input type="hidden" id="road-id" />
+                    <table id="" class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="align-top text-left">Street Link</th>
+                                <th scope="col" class="text-left"><span id="road-name">-</span> <span id="road-number"></span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="align-middle text-left">Coverage</th>
+                                <td class="text-left lead"><span id="claim-type" class="badge badge-secondary">-</span></td>
+                            </tr>
+                            <tr>
+                                <td scope="row" colspan="2" class="align-top text-left">Local information
+                                    <textarea class="form-control" id="road-meta" rows="13" readonly></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td scope="row" colspan="2" class="align-top text-left"><label for="user-meta">Say something about this update</label>
+                                    <textarea class="form-control" id="user-meta" rows="4" required></textarea>
+                                    <!-- <div class="invalid-feedback"> -->
+                                    <div id="user-meta-error" class="d-none text-danger">
+                                        Please precise your claim
+                                    </div>
+                                    <label id="user-meta-error" class="error d-none" for="user-meta"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="claim-id-3" name="claim-id" class="custom-control-input" value="3" disabled>
+                                        <label class="custom-control-label" for="claim-id-3">Needs postcards</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="claim-id-2" name="claim-id" class="custom-control-input" value="2">
+                                        <label class="custom-control-label" for="claim-id-2">Partly covered
+                                        </label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="claim-id-1" name="claim-id" class="custom-control-input" value="1">
+                                        <label class="custom-control-label" for="claim-id-1">Fully covered
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button id="claim-button" class="btn btn-primary ml-1" type="submit">Update the map</button>
+                    <div id="form-success-feedback" class="text-primary d-none">Updated! Thanks for your help!</div>
+                </form>
+            </div>
         </div>
-        <!-- ./Grid column -->
 
-      </div>
-      <!-- ./Grid row -->
+        <div class="row text-center mt-5">
+            <div class="col-sm" id="step-two">
+                <h2 class="text-secondary">Step Two</h2>
+                <p>Download, print out and fill in the color or black and white Corona Friend postcard.</p>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="download">
+                            <a href="/assets/leaflets/coronafriend-a4-leaflet.pdf" target="_blank">
+                                <img src="/assets/icons/download-icon.png" class="img-fluid" alt="Download" />
+                            </a>
+                        </p>
+                        <p class="postcard">
+                            <a href="/assets/leaflets/coronafriend-a4-leaflet.pdf" target="_blank">
+                                <img src="/assets/images/coronafriend-a4-leaflet.png" class="img-fluid mx-auto border rounded-lg" alt="Corona Friend Postcard" />
+                            </a>
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="download">
+                            <a href="/assets/leaflets/coronafriend-a4-leaflet-mono.pdf" target="_blank">
+                                <img src="/assets/icons/download-icon.png" class="img-fluid" alt="Download Black & White" />
+                            </a>
+                        </p>
+                        <p class="postcard">
+                            <a href="/assets/leaflets/coronafriend-a4-leaflet-mono.pdf" target="_blank">
+                                <img src="/assets/images/coronafriend-a4-leaflet-mono.png" class="img-fluid mx-auto border rounded-lg" alt="Corona Friend Postcard Black & White" />
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row text-center mt-5">
+            <div class="col-sm" id="step-three">
+                <h2 class="text-secondary">Step Three</h2>
+                <p>
+                    <img src="/assets/icons/envelope-icon.png" />
+                </p>
+                <!-- <i class="fas fa-door-closed fa-5x text-secondary-light"></i> -->
+                <p>Pop the filled out postcard through your neighbour's doors!</p>
+            </div>
+        </div>
 
     </div>
-    <!-- ./Footer Text -->
+    <!-- ./CONTAINER -->
 
-    <!-- Social buttons -->
-    <ul class="list-unstyled list-inline text-center">
-      <li class="list-inline-item">
-        <a class="btn-floating btn-fb mx-1">
-          <i class="fab fa-pinterest"> </i>
-        </a>
-      </li>
-      <li class="list-inline-item">
-        <a class="btn-floating btn-tw mx-1">
-          <i class="fab fa-twitter"> </i>
-        </a>
-      </li>
-      <li class="list-inline-item">
-        <a class="btn-floating btn-gplus mx-1">
-          <i class="fab fa-facebook-f"> </i>
-        </a>
-      </li>
-      <li class="list-inline-item">
-        <a class="btn-floating btn-li mx-1">
-          <i class="fab fa-linkedin-in"> </i>
-        </a>
-      </li>
-    </ul>
-    <!-- ./Social buttons -->
 
-    <!-- Copyright -->
-    <div class="footer-copyright text-center py-3 bg-primary">© 2020 Copyright:
-      <a href="https://coronafriend.com/">coronafriend.com</a>
+    <!-- Dialogs -->
+
+    <!-- About -->
+    <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">CoronaFriend</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p> Help and connect with your neighbours during COVID-19
+                        COVID-19 is putting everyone at great risk; friends, families and the vulnerable. Everyone lives a few doors
+                        away from someone who might need help.
+
+                        Offer your support by posting a Corona Friend postcard through their door. If we all pull together, no-one
+                        in
+                        the UK will have to face this virus alone.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- ./Copyright -->
+    <!-- ./About -->
+
+    <!-- Error -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="error-message"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Error -->
+
+
+    <!-- ./Dialogs -->
 
     <!-- scroll top button-->
-    <a id="back-to-top" href="#" class="btn btn-light btn-lg back-to-top" role="button"><i
-        class="fas fa-chevron-up"></i></a>
+    <a id="back-to-top" href="#" class="btn btn-light btn-lg back-to-top" role="button">
+        <i class="fas fa-chevron-up"></i>
+    </a>
     <!-- scroll top button-->
 
-  </footer>
-  <!-- ./Footer -->
 
-  <!-- Dialogs -->
+    <footer class="page-footer font-small primary pt-4 mt-5">
+        <div class="row">
+            <div class="col-md-6 mt-md-0 mt-3">
+                <ul class="list-unstyled list-inline text-center">
+                    <li class="list-inline-item">
+                        <a class="btn-floating mx-1" data-toggle="tooltip" data-placement="top" title="Contribute to CoronaFriend on GitHub" href="https://github.com/coronafriend" target="_blank">
+                            <i class="fab fa-github-square"> </i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="btn-floating mx-1" data-toggle="tooltip" data-placement="top" title="Follow @CoronaFriend on Twitter" href="https://twitter.com/coronafriend" target="_blank">
+                            <i class="fab fa-twitter"> </i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="btn-floating mx-1" data-toggle="tooltip" data-placement="top" title="Follow @CoronaFriend on Instagram" href="https://www.instagram.com/coronafriend/" target="_blank">
+                            <i class="fab fa-instagram-square"> </i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="btn-floating mx-1" data-toggle="tooltip" data-placement="top" title="Find CoronaFriend on Facebook"  href="https://www.facebook.com/coronafriend/" target="_blank">
+                            <i class="fab fa-facebook-f"> </i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-  <!-- About -->
-  <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">CoronaFriend</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+            <hr class="clearfix w-100 d-md-none pb-3">
+
+            <div class="col-md-6 mt-md-0 mt-3">
+                <ul class="list-unstyled list-inline text-center">
+                    <li class="list-inline-item">
+                        <a class="btn-floating mx-1" href="/privacy.html">
+                            Privacy and Cookies
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="modal-body">
-          <p> Help and connect with your neighbours during COVID-19
-            COVID-19 is putting everyone at great risk; friends, families and the vulnerable. Everyone lives a few doors
-            away from someone who might need help.
-
-            Offer your support by posting a Corona Friend postcard through their door. If we all pull together, no-one
-            in
-            the UK will have to face this virus alone.
-          </p>
+        <div class="footer-copyright text-center py-3 bg-primary">
+            Copyright &copy; 2020, <a href="https://coronafriend.com/">CoronaFriend and contributors</a>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- ./About -->
+    </footer>
 
-  <!-- Error -->
-  <div class="modal fade" id="errorModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Error</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p id="error-message"></p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Error -->
-
-
-  <!-- ./Dialogs -->
-
-  <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
-  <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/site.min.js"></script>
 </body>
 
 </html>

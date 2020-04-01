@@ -1,9 +1,34 @@
-$(document).ready(function () {
-    // ----------------------------------------------------------------------------
-    //
-    //  MAP
-    //
-    // ----------------------------------------------------------------------------
+var API_BASEURL = 'https://api.coronafriend.com';
+var state = {
+    map: null,
+    layers: null,
+    active_road: null,
+    permalink: null
+};
+
+var road_styles = {
+    empty: {
+        color: '#F9D8BF',
+        weight: 10,
+        opacity: 0.75,
+    },
+    partial: {
+        color: '#FFE288',
+        weight: 10,
+        opacity: 0.75,
+    },
+    full: {
+        color: '#95D1D7',
+        weight: 10,
+        opacity: 0.75,
+    },
+    selected: {
+        weight: 20,
+        opacity: 1.0,
+    },
+};
+
+function initMap() {
     var map = L.map('map', {
         minZoom: 7,
         maxZoom: 18,
@@ -16,99 +41,6 @@ $(document).ready(function () {
 
     map.setView([-0.118092, 51.509865], 7);
 
-    // Roads
-    var road_style = {
-        color: '#2fb67b',
-        weight: 10,
-        opacity: 0.65,
-    };
-    var hilight_style = {
-        color: '#0945f3',
-        weight: 15,
-        opacity: 0.65,
-    };
-
-    var road_styles = {
-        empty: {
-            color: '#F9D8BF',
-            weight: 10,
-            opacity: 0.65,
-        },
-        partial: {
-            color: '#FFE288',
-            weight: 10,
-            opacity: 0.65,
-        },
-        full: {
-            color: '#95D1D7',
-            weight: 10,
-            opacity: 0.65,
-        },
-        selected: {
-            color: '#F08D88',
-            weight: 15,
-            opacity: 1.0,
-        },
-    };
-
-    function getRoadStyle(claim_type) {
-        var style = {};
-        switch (claim_type) {
-            case 'empty':
-                style = road_styles.empty;
-                break;
-            case 'partial':
-                style = road_styles.partial;
-                break;
-            case 'full':
-                style = road_styles.full;
-                break;
-            default:
-                style = road_styles.empty;
-                break;
-        }
-        return style;
-    }
-
-    var selected_layer = null;
-
-    var road_layer = L.geoJSON(null, {
-        style: function (feature) {
-            return getRoadStyle(feature.properties.claim_type);
-        },
-        onEachFeature: function (feature, layer) {
-            layer.on({
-                click: function (e) {
-                    console.log(e.type + ': ' + e.target.feature.id);
-                    console.log(e.target.feature);
-                    if (null !== selected_layer) {
-                        selected_layer.setStyle(
-                            getRoadStyle(e.target.feature.properties.claim_type)
-                        );
-                    }
-
-                    selected_layer = layer;
-                    selected_layer.setStyle(road_styles.selected);
-
-                    toggleStreetInfo();
-                    // layer.setStyle(hilight_style);
-                    // console.log(e);
-                },
-                // mouseover: function(e) {
-                //     console.log(e.type + ': ' + e.target.feature.id);
-                //     console.log(e);
-                //     // layer.setStyle(hilight_style);
-                // },
-                // mouseout: function(e) {
-                //     console.log(e.type + ': ' + e.target.feature.id);
-                //     // layer.setStyle(road_style);
-                // },
-            });
-        },
-    }).addTo(map);
-
-    // Basemap
-
     var gl = L.mapboxGL({
         style:
             'https://s3-eu-west-1.amazonaws.com/tiles.os.uk/v2/styles/open-zoomstack-light/style.json',
@@ -116,155 +48,415 @@ $(document).ready(function () {
     }).addTo(map);
 
     map.attributionControl.addAttribution(
-        'Contains OS data &copy; Crown copyright and database rights 2018'
+        '<a href="https://www.ons.gov.uk/">Office for National Statistics</a>, licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Local Government License v3.0</a>. ' +
+        'Contains OS data &copy; Crown copyright and database rights 2020'
     );
-
-    // locate control
 
     var locate_options = {
         setView: true,
         maxZoom: 17,
     };
 
-    // map.locate(locate_options);
+    var lc = L.control.locate({
+        position: 'topright',
+        icon: 'fas fa-map-marked-alt fa-2x',
+        locateOptions: locate_options,
+    }).addTo(map);
 
-    var lc = L.control
-        .locate({
-            position: 'topright',
-            icon: 'fas fa-map-marked-alt fa-2x',
-            locateOptions: locate_options,
+    return map;
+}
+
+function getRoadStyle(claim_id) {
+    var style = {};
+    switch (claim_id) {
+        case 1:
+            style = road_styles.full;
+            break;
+        case 2:
+            style = road_styles.partial;
+            break;
+        case 3:
+            style = road_styles.empty;
+            break;
+        default:
+            style = road_styles.empty;
+            break;
+    }
+    return style;
+}
+
+function renderRoads() {
+    // console.log('renderRoads');
+    var zoom = state.map.getZoom();
+    if (zoom < 15) {
+        return;
+    }
+    var bounds = state.map.getBounds();
+    var url = API_BASEURL + '/v1/roads?bounds=' + bounds.toBBoxString();
+    fetch(url)
+        .then(function (response) {
+            return response.json();
         })
-        .addTo(map);
+        .then(function (json) {
+            state.layers.addData(json);
+            if (state.active_road !== null) {
+                selectRoad(state.active_road);
+            }
+            if (state.permalink !== null) {
+                layer = findLayerById(state.permalink);
+                displayRoadInfo(layer.feature.properties);
+                showInfoPanel();
 
-    // map events
+            }
+        })
+        .catch(function (ex) {
+            console.log('parsing failed', ex);
+        });
+}
 
-    map.on('load', function (e) {
-        reportUpdate(e);
-        // map.on('zoomend', function(e) {
-        //     reportUpdate(e);
-        // });
-        map.on('movestart', function (e) {
-            reportUpdate(e);
-            clearRoads();
-        });
-        map.on('moveend', function (e) {
-            reportUpdate(e);
-            renderRoads();
-        });
-        map.on('resize', function (e) {
-            reportUpdate(e);
-            clearRoads();
-            renderRoads();
-        });
+function clearRoads() {
+    // console.log('clearRoads');
+    state.layers.clearLayers();
+}
+
+function findLayerById(id) {
+    var road_layer = null;
+    state.layers.eachLayer(function(layer) {
+        if (layer.feature.id == id && road_layer == null) {
+            road_layer = layer;
+        }
     });
 
-    function reportUpdate(e) {
-        var ctr = map.getCenter();
-        var zoom = map.getZoom();
-        var bounds = map.getBounds();
-        console.log(
-            e.type +
-                ': zoom: ' +
-                zoom +
-                ': ctr: ' +
-                ctr.toString() +
-                ': bounds: ' +
-                bounds.toBBoxString()
+    return road_layer;
+}
+
+function selectRoad(id) {
+    // console.log('selectRoad: ' + id);
+    var layer = findLayerById(id);
+
+    if (layer !== null) {
+        layer.setStyle(road_styles.selected);
+    }
+}
+
+function deselectRoad(id) {
+    // console.log('deselectRoad: ' + id);
+    var layer = findLayerById(id);
+
+    if (layer !== null) {
+        layer.setStyle(getRoadStyle(layer.feature.properties.claim_id));
+    }
+}
+
+function searchPostcode(postcode) {
+    $('#error-message').text('');
+    var url = API_BASEURL + '/v1/postcode/' + encodeURIComponent(postcode);
+    fetch(url)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (json) {
+            // check geosjon with features
+            if (!json.features) {
+                $('#error-message').text('Oh no! Sorry but that postcode couldn\'t be found');
+                $('#errorModal').modal('show');
+                return false;
+            }
+
+            var features = json.features;
+            if (features && features.length > 1) {
+                // TODO: get bounding box from features
+            }
+            else {
+                var feature = features[0];
+                var coordinates = feature.geometry.coordinates;
+                state.map.setView([coordinates[1], coordinates[0]], 17);
+                renderRoads();
+            }
+        })
+        .catch(function (ex) {
+            $('#error-message').text('On no! Postcode search failed');
+            $('#errorModal').modal('show');
+        });
+}
+
+function showInfoPanel() {
+    // console.log('showInfoPanel');
+    if ($('#map-wrapper').hasClass('col-md-12')) {
+        $('#map-wrapper').removeClass('col-md-12').addClass('col-md-9');
+        $('#street-wrapper').removeClass('d-none');
+        // console.log('showInfoPanel: invalidating map');
+        state.map.invalidateSize();
+    }
+    else {
+        // console.log('showInfoPanel: panel already visible');
+        if (state.active_road !== null) {
+            // console.log('showInfoPanel: setting active road ' + state.active_road);
+            selectRoad(state.active_road);
+        }
+    }
+}
+
+function displayRoadInfo(properties) {
+    // console.log('displayRoadInfo: ' + properties.road_id);
+    $('#road-id').val(properties.road_id);
+    $('#claim-type').removeAttr('class');
+    $('#user-meta-error').addClass('d-none');
+    $('#form-sucess-feedaback').addClass('d-none');
+
+    var road_name = properties.road_name || '(unnamed road)';
+    var road_number = properties.road_number || '';
+    if (road_number) road_number = '(' + road_number + ')';
+
+    var road_meta = '';
+    if (properties.road_meta) {
+        road_meta = properties.road_meta.join('\n');
+    }
+
+    var link = $('<a>');
+    link.attr('href', window.location.href);
+    link.text(road_name);
+    $('#road-name').html(link);
+    $('#road-number').text(road_number);
+    $('#road-meta').val(road_meta);
+
+    $('#claim-id-' + properties.claim_id).prop('checked', true);
+
+    switch (properties.claim_id) {
+        case 1:
+            // fully claimed
+            $('#claim-type').text('fully claimed');
+            $('#claim-type').addClass('badge badge-full');
+            $('#claim-id-2').prop('disabled', true);
+            break;
+
+        case 2:
+            // partially claimed
+            $('#claim-type').text('partially claimed');
+            $('#claim-type').addClass('badge badge-partial');
+            break;
+
+        case 3:
+            // unclaimed
+            $('#claim-type').text('unclaimed');
+            $('#claim-type').addClass('badge badge-empty');
+            break;
+
+        default:
+            $('#claim-type').addClass('badge');
+            break;
+    }
+}
+
+function putRoad(data) {
+    var url = API_BASEURL + '/v1/roads/' + data.road_id;
+    return fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        redirect: 'follow',
+        body: JSON.stringify(data),
+    });
+}
+
+function getFormData(user_input) {
+    var road_id = $('#road-id').val();
+    var claim_id = $('input[name="claim-id"]:checked').val();
+
+    var meta = [];
+    var sanitised_input = user_input.replace(/(<([^>]+)>)/ig,"");
+    meta.push(sanitised_input);
+
+    return {
+        road_id: road_id,
+        claim_id: claim_id,
+        road_meta: meta
+    };
+}
+
+function getPermaLink() {
+    // console.log('getPermaLink');
+    var url = window.location.search.substr(1);
+    if (!url) {
+        url = window.location.hash.substr(1);
+    }
+    if (url !== '') {
+        state.permalink = url;
+        // console.log('getPermaLink: set id: ' + state.permalink);
+    }
+}
+
+function renderPermaLink() {
+    // console.log('renderPermaLink');
+    if (state.permalink !== null) {
+        // console.log('renderPermaLink: ' + state.permalink);
+        var url = API_BASEURL + '/v1/roads/' + state.permalink;
+        fetch(url)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(json) {
+                // console.log('renderPermaLink: got street info');
+                var coords = json.geometry.coordinates;
+                var geom = L.GeoJSON.coordsToLatLngs(coords);
+                var line = L.polyline(geom);
+                state.active_road = state.permalink;
+
+                state.map.fitBounds(line.getBounds(), {
+                    maxZoom: 17
+                });
+            })
+            .catch (function(e) {
+                console.log('permalink fetch failed:', e);
+            });
+    }
+}
+
+function initScrollHandlers() {
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 50) {
+            $('#back-to-top').fadeIn();
+        }
+        else {
+            $('#back-to-top').fadeOut();
+        }
+    });
+
+    $('#back-to-top').click(function () {
+        $('body,html').animate({
+                scrollTop: 0,
+            }, 400
         );
+        return false;
+    });
+}
+
+$(document).ready(function () {
+    initScrollHandlers();
+    getPermaLink();
+
+    if ($('#map').length == 0) {
+        return;
     }
 
-    function onLocationFound(e) {
-        console.log('locationFound fired');
-        var radius = e.accuracy;
+    state.map = initMap();
 
-        L.marker(e.latlng)
-            .addTo(map)
-            .bindPopup(
-                'You seem to be around ' + radius + 'm from this location'
-            )
-            .openPopup();
-        L.circle(e.latlng, radius).addTo(map);
+    var selected_layer = null;
+
+    state.layers = L.geoJSON(null, {
+        style: function (feature) {
+            return getRoadStyle(feature.properties.claim_id);
+        },
+        onEachFeature: function (feature, layer) {
+            layer.on({
+                click: function (e) {
+                    // console.log('road click fired');
+                    // console.log(layer);
+
+                    if (null !== state.active_road) {
+                        deselectRoad(state.active_road);
+                        state.active_road = null;
+                    }
+
+                    state.active_road = e.target.feature.id;
+                    window.location.hash = state.permalink = e.target.feature.id;
+                    displayRoadInfo(e.target.feature.properties);
+                    showInfoPanel();
+                }
+            });
+        },
+    }).addTo(state.map);
+
+    state.map.on('movestart', function (e) {
+        // console.log('movestart fired');
+        clearRoads();
+    });
+    state.map.on('moveend', function (e) {
+        // console.log('moveend fired');
         renderRoads();
-    }
+    });
+    state.map.on('resize', function (e) {
+        // console.log('resize fired');
+        clearRoads();
+        renderRoads();
+    });
+    state.map.on('locationfound', function(e) {
+        var radius = e.accuracy;
+        L.marker(e.latlng)
+            .addTo(state.map)
+            .bindPopup('You seem to be around ' + radius + 'm from this location')
+            .openPopup();
+    });
 
-    function clearRoads() {
-        road_layer.clearLayers();
-    }
+    renderPermaLink();
 
-    function renderRoads() {
-        var zoom = map.getZoom();
-        if (zoom < 15) {
-            console.log('Zoom ' + zoom + ' - skipping rendering');
+    $('#claim-button').click(function (e) {
+        // console.log('#claim-button click fired');
+        e.preventDefault();
+        $('#form-sucess-feedaback').addClass('d-none');
+        // check values
+        var user_input = $('#user-meta').val();
+        if (!user_input) {
+            $('#user-meta-error').removeClass('d-none');
             return;
         }
-        var bounds = map.getBounds();
-        var url =
-            'https://api.coronafriend.test/v1/roads?bounds=' +
-            bounds.toBBoxString();
-        fetch(url)
+        $('#error-message').text('');
+
+        // submit values
+        var data = getFormData(user_input);
+        putRoad(data)
             .then(function (response) {
                 return response.json();
             })
             .then(function (json) {
-                road_layer.addData(json);
-            })
-            .catch(function (ex) {
-                console.log('parsing failed', ex);
-            });
-    }
+                $('#user-meta-error').addClass('d-none');
+                $('#form-success-feedback').removeClass('d-none');
 
-    map.on('locationfound', onLocationFound);
-
-    // ----------------------------------------------------------------------------
-    //
-    //  Toogle street infos
-    //
-    // ----------------------------------------------------------------------------
-
-    function toggleStreetInfo() {
-        if ($('#map-wrapper').hasClass('col-md-12')) {
-            $('#map-wrapper').removeClass('col-md-12').addClass('col-md-9');
-            $('#street-wrapper').removeClass('d-none');
-        }
-
-        map.invalidateSize();
-        return false;
-    }
-
-    // ----------------------------------------------------------------------------
-    //
-    //  Search Postcode
-    //
-    // ----------------------------------------------------------------------------
-
-    function searchPostode(postcode) {
-        var url =
-            'https://api.coronafriend.test/v1/postcode/' +
-            encodeURIComponent(postcode);
-        fetch(url)
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (json) {
-                // check geosjon with features
-                if (!json.features) {
-                    $(); // TODO: handle error 404
+                if (json.road_meta) {
+                    var road_meta = json.road_meta.join('\n');
+                    $('#road-meta').val(road_meta);
                 }
-                //
-                var features = json.features;
-                if (features && features.length > 1) {
-                    // TODO: multiple pin on the map ? or display list of results ?
-                } else {
-                    var feature = features[0];
-                    var coordinates = feature.geometry.coordinates;
-                    map.setView([coordinates[1], coordinates[0]], 17);
-                    renderRoads();
+
+                $('#user-meta').text('');
+                $('#claim-id-' + json.claim_id).prop('checked', true);
+
+                // console.log('API updated OK');
+                clearRoads();
+                renderRoads();
+
+                switch (json.claim_id) {
+                    case 1:
+                        // fully claimed
+                        $('#claim-type').text('fully claimed');
+                        $('#claim-type').addClass('badge badge-full');
+                        $('#claim-id-2').prop('disabled', true);
+                        break;
+
+                    case 2:
+                        // partially claimed
+                        $('#claim-type').text('partially claimed');
+                        $('#claim-type').addClass('badge badge-partial');
+                        break;
+
+                    case 3:
+                        // unclaimed
+                        $('#claim-type').text('unclaimed');
+                        $('#claim-type').addClass('badge badge-empty');
+                        break;
+
+                    default:
+                        $('#claim-type').addClass('badge');
+                        break;
                 }
             })
             .catch(function (ex) {
-                console.log('Search postcode failed', ex);
+                // console.log('PUT failed', ex);
+                $('#error-message').text('Oh no! Sorry but that update didn\'t work. Try refreshing your browser and trying again');
+                $('#errorModal').modal('show');
             });
-    }
+    });
+
 
     // Highlight search box text on click
     $('#postcode-input').click(function () {
@@ -278,11 +470,13 @@ $(document).ready(function () {
     $('#postcode-input').keypress(function (e) {
         if (e.which === 13) {
             e.preventDefault();
+            $('#search-postcode').trigger('click');
         }
     });
     $('#map-postcode-input').keypress(function (e) {
         if (e.which === 13) {
             e.preventDefault();
+            $('#map-search-postcode').trigger('click');
         }
     });
     // Prevent duble click on input text which is interpreted as a zoom-in
@@ -292,57 +486,19 @@ $(document).ready(function () {
 
     $('#map-search-postcode').click(function (e) {
         e.preventDefault();
-        console.log('search postcode');
         var postcode = $('#map-postcode-input').val();
         if (!!postcode) {
-            searchPostode(postcode);
+            searchPostcode(postcode);
         }
         return false;
     });
 
     $('#search-postcode').click(function (e) {
         e.preventDefault();
-        console.log('search postcode');
         var postcode = $('#postcode-input').val();
         if (!!postcode) {
-            searchPostode(postcode);
+            searchPostcode(postcode);
         }
         return false;
     });
-
-    // ----------------------------------------------------------------------------
-    //
-    //  About button click
-    //
-    // ----------------------------------------------------------------------------
-
-    $('#about-btn').click(function () {
-        $('#aboutModal').modal('show');
-        $('.navbar-collapse.in').collapse('hide');
-        return false;
-    });
-
-    // ----------------------------------------------------------------------------
-    //
-    //  Scroll top
-    //
-    // ----------------------------------------------------------------------------
-
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 50) {
-            $('#back-to-top').fadeIn();
-        } else {
-            $('#back-to-top').fadeOut();
-        }
-    });
-    // scroll body to 0px on click
-    $('#back-to-top').click(function () {
-        $('body,html').animate(
-            {
-                scrollTop: 0,
-            },
-            400
-        );
-        return false;
-    });
-}); // end document ready
+});

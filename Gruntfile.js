@@ -42,6 +42,7 @@ module.exports = function (grunt) {
                     './node_modules/mapbox-gl/dist/mapbox-gl-unminified.js',
                     './node_modules/mapbox-gl-leaflet/leaflet-mapbox-gl.js',
                     './node_modules/leaflet.locatecontrol/src/L.Control.Locate.js',
+                    './src/js/L.Control.ZoomDisplay.js',
                     './src/js/site.js',
                 ],
                 dest: '<%= dirs.public %>/assets/js/site.js',
@@ -56,6 +57,22 @@ module.exports = function (grunt) {
                         src: ['**/*.png'],
                         dest: '<%= dirs.public %>/assets/images/',
                     },
+                    {
+                        expand: true,
+                        cwd: 'node_modules/leaflet/dist/images',
+                        src: ['**/*.png'],
+                        dest: '<%= dirs.public %>/assets/leaflet',
+                        filter: 'isFile',
+                        ext: '.png'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'node_modules/mapbox-gl/src/css/svg',
+                        src: ['**/*.svg'],
+                        dest: '<%= dirs.public %>/assets/mapbox-gl',
+                        filter: 'isFile',
+                        ext: '.svg'
+                    }
                 ],
             },
             fonts: {
@@ -123,6 +140,42 @@ module.exports = function (grunt) {
                     },
                 ],
             },
+            leaflet: {
+                options: {
+                    process: function(content, srcpath) {
+                        // fixup Leaflet image paths ...
+                        return content.replace(/images\//g, '/assets/leaflet/');
+                    }
+                },
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'node_modules/leaflet/dist',
+                        src: ['*.css'],
+                        dest: 'src/sass/leaflet',
+                        filter: 'isFile',
+                        rename: function(dest, src) {
+                            return dest + '/_' + src;
+                        },
+                        ext: '.scss'
+
+                    }
+                ]
+            },
+        },
+        cssmin: {
+            options: {
+                inline: ['all'],
+                sourceMap: true
+            },
+            site: {
+                files: [
+                    {
+                        src: ['<%= dirs.public %>/assets/css/site.css'],
+                        dest: '<%= dirs.public %>/assets/css/site.min.css'
+                    }
+                ]
+            }
         },
         sass: {
             options: {
@@ -148,7 +201,6 @@ module.exports = function (grunt) {
             options: {
                 sourceMap: true,
                 sourceMapIncludeSources: true,
-                sourceMapIn: '<%= dirs.public %>/assets/js/site.js.map',
             },
             site: {
                 files: [
@@ -181,7 +233,7 @@ module.exports = function (grunt) {
             },
             sass: {
                 files: ['src/sass/**/*.scss'],
-                tasks: ['sass'],
+                tasks: ['sass', 'cssmin:site'],
             },
         },
     });
@@ -195,21 +247,17 @@ module.exports = function (grunt) {
         'copy',
         'concat',
         'sass',
+        'cssmin',
         'uglify',
     ]);
     grunt.registerTask('rebuild', ['clean', 'build']);
     grunt.registerTask('dist', ['rebuild', 'compress']);
     grunt.registerTask('nodsstore', function () {
-        grunt.file
-            .expand(
-                {
-                    filter: 'isFile',
-                    cwd: '.',
-                },
-                ['**/.DS_Store']
-            )
-            .forEach(function (file) {
-                grunt.file.delete(file);
-            });
+        grunt.file.expand({
+            filter: 'isFile',
+            cwd: '.',
+        }, ['**/.DS_Store']).forEach(function (file) {
+            grunt.file.delete(file);
+        });
     });
 };

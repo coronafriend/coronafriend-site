@@ -1,4 +1,4 @@
-# coronafriend-site
+# <img valign="top" src="https://github.com/coronafriend/coronafriend-assets/raw/master/site-icons/coronafriend-icon.png" width="64" heigh="64" alt="CoronaFriend">&nbsp;coronafriend-site
 
 CoronaFriend is a lightweight web map application that helps connect people,
 communities and existing social network groups to provide on the ground help
@@ -36,7 +36,7 @@ $ npm install
 The watch task builds and keeps watching the file changes.
 
 ```
-$ npm start
+$ npm start && npm run serve
 ```
 
 it outputs changes into : `dist/coronafriend-site/public`

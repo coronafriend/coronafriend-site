@@ -6,6 +6,7 @@
   "scripts": {
     "build": "grunt build",
     "prettier": "prettier --write .",
+    "serve": "serve dist/coronafriend-site/public",
     "start": "grunt",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,6 +28,7 @@
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^3.0.0",
     "grunt-contrib-uglify": "^4.0.1",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-openport": "^1.0.0",
@@ -39,6 +41,7 @@
     "mapbox-gl-leaflet": "0.0.11",
     "node-sass": "^4.13.1",
     "popper.js": "^1.16.1",
-    "prettier": "^2.0.2"
+    "prettier": "^2.0.2",
+    "serve": "^11.3.0"
   }
 }
