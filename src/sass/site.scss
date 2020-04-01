@@ -97,6 +97,21 @@ footer {
     min-height: 750px;
 }
 
+// Cloned from https://github.com/azavea/Leaflet.zoomdisplay due to no package.json in that repo
+.leaflet-control-zoom-display {
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    // padding-top: 0.3em;
+    font: bold 12px/20px Roboto, Helvetica, Arial, sans-serif;
+}
+
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) {
 
