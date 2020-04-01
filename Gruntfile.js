@@ -162,6 +162,20 @@ module.exports = function (grunt) {
                 ]
             },
         },
+        cssmin: {
+            options: {
+                inline: ['all'],
+                sourceMap: true
+            },
+            site: {
+                files: [
+                    {
+                        src: ['<%= dirs.public %>/assets/css/site.css'],
+                        dest: '<%= dirs.public %>/assets/css/site.min.css'
+                    }
+                ]
+            }
+        },
         sass: {
             options: {
                 implementation: sass,
@@ -186,7 +200,6 @@ module.exports = function (grunt) {
             options: {
                 sourceMap: true,
                 sourceMapIncludeSources: true,
-                sourceMapIn: '<%= dirs.public %>/assets/js/site.js.map',
             },
             site: {
                 files: [
@@ -219,7 +232,7 @@ module.exports = function (grunt) {
             },
             sass: {
                 files: ['src/sass/**/*.scss'],
-                tasks: ['sass'],
+                tasks: ['sass', 'cssmin:site'],
             },
         },
     });
@@ -233,21 +246,17 @@ module.exports = function (grunt) {
         'copy',
         'concat',
         'sass',
+        'cssmin',
         'uglify',
     ]);
     grunt.registerTask('rebuild', ['clean', 'build']);
     grunt.registerTask('dist', ['rebuild', 'compress']);
     grunt.registerTask('nodsstore', function () {
-        grunt.file
-            .expand(
-                {
-                    filter: 'isFile',
-                    cwd: '.',
-                },
-                ['**/.DS_Store']
-            )
-            .forEach(function (file) {
-                grunt.file.delete(file);
-            });
+        grunt.file.expand({
+            filter: 'isFile',
+            cwd: '.',
+        }, ['**/.DS_Store']).forEach(function (file) {
+            grunt.file.delete(file);
+        });
     });
 };
