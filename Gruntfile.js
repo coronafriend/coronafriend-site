@@ -33,6 +33,12 @@ module.exports = function (grunt) {
         concat: {
             options: {
                 sourceMap: true,
+                process: function(content, srcpath) {
+                    if (process.env['OVERRIDE_CORONAFRIEND_DOMAIN']) {
+                        return content.replace(/api\.coronafriend\.com/g, process.env['OVERRIDE_CORONAFRIEND_DOMAIN']);
+                    }
+                    return content;
+                }
             },
             site: {
                 src: [
