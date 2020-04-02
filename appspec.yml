@@ -9,6 +9,10 @@ files:
   - source: /dist/coronafriend-site/public
     destination: /var/www/domains/%CORONAFRIEND_DOMAIN%/public
 
+  # Master Nginx config file
+  - source: /config/nginx.conf
+    destination: /etc/nginx/
+
   # Nginx VHOST
   - source: /config/00-%CORONAFRIEND_DOMAIN%.conf
     destination: /etc/nginx/sites-available/
