@@ -189,6 +189,12 @@ function showInfoPanel() {
         $('#street-wrapper').removeClass('d-none');
         // console.log('showInfoPanel: invalidating map');
         state.map.invalidateSize();
+
+        if (window.matchMedia("(max-width: 767px)").matches) {
+            $('html,body').animate({
+                scrollTop: ($('#street-wrapper').offset().top)
+            }, 500);
+        }
     }
     else {
         // console.log('showInfoPanel: panel already visible');
