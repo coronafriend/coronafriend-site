@@ -426,7 +426,6 @@ $(document).ready(function () {
                         // fully claimed
                         $('#claim-type').text('Fully Covered');
                         $('#claim-type').addClass('badge badge-full');
-                        $('#claim-id-2').prop('disabled', true);
                         break;
 
                     case 2:
