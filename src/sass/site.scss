@@ -15,7 +15,8 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Baloo+2:400,700&display=swap');
 
-html, body {
+html,
+body {
     height: 100%;
     font-family: Roboto, Helvetica, Arial, sans-serif;
 }
@@ -24,14 +25,17 @@ html, body {
     color: $body-color;
 }
 
-.text-primary, .text-secondary, .navbar {
+.text-primary,
+.text-secondary,
+.navbar {
     font-family: 'Baloo 2', sans-serif;
     font-weight: bold;
 }
 
 footer {
-    background:$primary-light;
+    background: $primary-light;
     color: $light;
+
     a {
         color: $light;
     }
@@ -94,12 +98,13 @@ footer {
 }
 
 #map {
-    min-height: 750px;
+    height: 750px;
+    max-height: 75vh;
 }
 
 .help-icon {
     padding-left: 0.5rem;
-    
+
     img {
         height: 1.25rem;
     }
@@ -121,23 +126,13 @@ footer {
 }
 
 // Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) {
-
-}
+@media (min-width: 576px) {}
 
 // Medium devices (tablets, 768px and up)
-@media (min-width: 768px) {
-
-
-}
+@media (min-width: 768px) {}
 
 // Large devices (desktops, 992px and up)
-@media (min-width: 992px) {
-
-
-}
+@media (min-width: 992px) {}
 
 // Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {
-
-}
+@media (min-width: 1200px) {}
