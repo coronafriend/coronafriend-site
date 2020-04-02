@@ -56,6 +56,7 @@ function initMap() {
     var locate_options = {
         setView: true,
         maxZoom: 17,
+        watch: false
     };
 
     var lc = L.control.locate({
