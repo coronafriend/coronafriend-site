@@ -215,8 +215,7 @@ function displayRoadInfo(properties) {
     }
 
     var link = $('<a>');
-    link.attr('href', window.location.href);
-    link.text(road_name);
+    link.attr('href', window.location.href).text(road_name);
     $('#road-name').html(link);
     $('#road-number').text(road_number);
     $('#road-meta').val(road_meta);
@@ -228,7 +227,7 @@ function displayRoadInfo(properties) {
             // fully claimed
             $('#claim-type').text('Fully Covered');
             $('#claim-type').addClass('badge badge-full');
-            $('#claim-id-2').prop('disabled', true);
+            // $('#claim-id-2').prop('disabled', true);
             break;
 
         case 2:
@@ -398,10 +397,10 @@ $(document).ready(function () {
         $('#form-sucess-feedaback').addClass('d-none');
         // check values
         var user_input = $('#user-meta').val();
-        if (!user_input) {
-            $('#user-meta-error').removeClass('d-none');
-            return;
-        }
+        // if (!user_input) {
+        //     $('#user-meta-error').removeClass('d-none');
+        //     return;
+        // }
         $('#error-message').text('');
 
         // submit values
