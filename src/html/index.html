@@ -132,8 +132,8 @@
                                 <td colspan="2">
                                     <div class="float-left custom-control custom-radio custom-control-inline">
                                         <input type="radio" id="claim-id-3" name="claim-id" class="custom-control-input" value="3">
-                                        <label class="custom-control-label" for="claim-id-3">Help Needed</label>
-                                        <span class="help-icon"><a id="help-help-needed" href="#" data-toggle="tooltip" data-placement="top" title="What does this mean?"><img src="/assets/icons/question-turquoise-icon.png" /></a></span>
+                                        <label class="custom-control-label" for="claim-id-3">Not Covered</label>
+                                        <span class="help-icon"><a id="help-not-covered" href="#" data-toggle="tooltip" data-placement="top" title="What does this mean?"><img src="/assets/icons/question-turquoise-icon.png" /></a></span>
                                     </div>
                                 </td>
                             </tr>
@@ -152,6 +152,15 @@
                                         <input type="radio" id="claim-id-1" name="claim-id" class="custom-control-input" value="1">
                                         <label class="custom-control-label" for="claim-id-1">Fully Covered</label>
                                         <span class="help-icon"><a id="help-fully-covered" href="#" data-toggle="tooltip" data-placement="top" title="What does this mean?"><img src="/assets/icons/question-turquoise-icon.png" /></a></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="float-left custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="claim-id-4" name="claim-id" class="custom-control-input" value="4">
+                                        <label class="custom-control-label" for="claim-id-4">Help Needed</label>
+                                        <span class="help-icon"><a id="help-help-needed" href="#" data-toggle="tooltip" data-placement="top" title="What does this mean?"><img src="/assets/icons/question-turquoise-icon.png" /></a></span>
                                     </div>
                                 </td>
                             </tr>
@@ -266,7 +275,26 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p><em>Help Needed</em> means that none of this street has been covered under the CoronaFriend project. If you are able, please cover all or part of the street and let us know by submitting an update.</p>
+                    <p><em>Help Needed</em> means that somebody on this street is looking for help. If you are able, please cover all or part of the street and let us know by submitting an update.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-not-covered" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">What Does <em>Not Covered</em> Mean?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><em>Not Covered</em> means that none of this street has been covered under the CoronaFriend project. If you are able, please cover all or part of the street and let us know by submitting an update.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>

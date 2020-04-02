@@ -22,6 +22,11 @@ var road_styles = {
         weight: 10,
         opacity: 0.75,
     },
+    help: {
+        color: '#F08D88',
+        weight: 10,
+        opacity: 0.75,
+    },
     selected: {
         color: '#70B5E5',
         weight: 20,
@@ -79,6 +84,9 @@ function getRoadStyle(claim_id) {
             break;
         case 3:
             style = road_styles.empty;
+            break;
+        case 4:
+            style = road_styles.help;
             break;
         default:
             style = road_styles.empty;
@@ -238,8 +246,14 @@ function displayRoadInfo(properties) {
 
         case 3:
             // unclaimed
-            $('#claim-type').text('Help Needed');
+            $('#claim-type').text('Not Covered');
             $('#claim-type').addClass('badge badge-empty');
+            break;
+
+        case 4:
+            // help needed
+            $('#claim-type').text('Help Needed');
+            $('#claim-type').addClass('badge badge-help');
             break;
 
         default:
@@ -437,6 +451,11 @@ $(document).ready(function () {
 
                     case 3:
                         // unclaimed
+                        $('#claim-type').text('Not Covered');
+                        $('#claim-type').addClass('badge badge-empty');
+                        break;
+                    case 4:
+                        // help needed
                         $('#claim-type').text('Help Needed');
                         $('#claim-type').addClass('badge badge-empty');
                         break;
@@ -505,6 +524,10 @@ $(document).ready(function () {
     $('#help-help-needed').click(function(e) {
         e.preventDefault();
         $('#modal-help-needed').modal('show');
+    });
+    $('#help-not-covered').click(function(e) {
+        e.preventDefault();
+        $('#modal-not-covered').modal('show');
     });
     $('#help-partly-covered').click(function(e) {
         e.preventDefault();
