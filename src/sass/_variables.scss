@@ -30,11 +30,19 @@ $green:   #56CC9D !default;
 $teal:    #20c997 !default;
 $cyan:    #6CC3D5 !default;
 
-$primary:       #32b6be !default;
-$primary-light: #95d1d7 !default;
-$secondary:     #F08d88 !default;
-$secondary-light: #F9d8bf !default;
-$third-color: #ffe288;
+$coronafriend-primary: #32B6BE !default;
+$coronafriend-red: #F08D88 !default;
+$coronafriend-tan: #F9D8BF !default;
+$coronafriend-yellow: #FFE288 !default;
+$coronafriend-turquoise: #95D1D7 !default;
+$coronafriend-green: #BAEB90 !default;
+$coronafriend-blue: #70B5E5 !default;
+
+$primary:       $coronafriend-primary !default;
+$primary-light: $coronafriend-turquoise !default;
+$secondary:     $coronafriend-red !default;
+$secondary-light: $coronafriend-tan !default;
+$third-color: $coronafriend-yellow;
 
 // $primary:       #78C2AD !default;
 // $secondary:     #F3969A !default;

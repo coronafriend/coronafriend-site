@@ -18,11 +18,12 @@ var road_styles = {
         opacity: 0.75,
     },
     full: {
-        color: '#95D1D7',
+        color: '#BAEB90',
         weight: 10,
         opacity: 0.75,
     },
     selected: {
+        color: '#70B5E5',
         weight: 20,
         opacity: 1.0,
     },
@@ -225,20 +226,20 @@ function displayRoadInfo(properties) {
     switch (properties.claim_id) {
         case 1:
             // fully claimed
-            $('#claim-type').text('fully claimed');
+            $('#claim-type').text('Fully Covered');
             $('#claim-type').addClass('badge badge-full');
             $('#claim-id-2').prop('disabled', true);
             break;
 
         case 2:
             // partially claimed
-            $('#claim-type').text('partially claimed');
+            $('#claim-type').text('Partly Covered');
             $('#claim-type').addClass('badge badge-partial');
             break;
 
         case 3:
             // unclaimed
-            $('#claim-type').text('unclaimed');
+            $('#claim-type').text('Help Needed');
             $('#claim-type').addClass('badge badge-empty');
             break;
 
@@ -428,20 +429,20 @@ $(document).ready(function () {
                 switch (json.claim_id) {
                     case 1:
                         // fully claimed
-                        $('#claim-type').text('fully claimed');
+                        $('#claim-type').text('Fully Covered');
                         $('#claim-type').addClass('badge badge-full');
                         $('#claim-id-2').prop('disabled', true);
                         break;
 
                     case 2:
                         // partially claimed
-                        $('#claim-type').text('partially claimed');
+                        $('#claim-type').text('Partly Covered');
                         $('#claim-type').addClass('badge badge-partial');
                         break;
 
                     case 3:
                         // unclaimed
-                        $('#claim-type').text('unclaimed');
+                        $('#claim-type').text('Help Needed');
                         $('#claim-type').addClass('badge badge-empty');
                         break;
 
@@ -501,4 +502,26 @@ $(document).ready(function () {
         }
         return false;
     });
+
+    $('#help-permalink').click(function(e) {
+        e.preventDefault();
+        $('#modal-permalink').modal('show');
+    });
+    $('#help-help-needed').click(function(e) {
+        e.preventDefault();
+        $('#modal-help-needed').modal('show');
+    });
+    $('#help-partly-covered').click(function(e) {
+        e.preventDefault();
+        $('#modal-partly-covered').modal('show');
+    });
+    $('#help-fully-covered').click(function(e) {
+        e.preventDefault();
+        $('#modal-fully-covered').modal('show');
+    });
+    $('#help-update').click(function(e) {
+        e.preventDefault();
+        $('#modal-update').modal('show');
+    });
+
 });

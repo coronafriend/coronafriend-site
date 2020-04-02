@@ -42,15 +42,15 @@ footer {
 }
 
 .badge-empty {
-    background-color: $secondary-light;
+    background-color: $coronafriend-tan;
 }
 
 .badge-partial {
-    background-color: $third-color;
+    background-color: $coronafriend-yellow;
 }
 
 .badge-full {
-    background-color: $primary-light;
+    background-color: $coronafriend-green;
 }
 
 .postcard {
@@ -95,6 +95,14 @@ footer {
 
 #map {
     min-height: 750px;
+}
+
+.help-icon {
+    padding-left: 0.5rem;
+    
+    img {
+        height: 1.25rem;
+    }
 }
 
 // Cloned from https://github.com/azavea/Leaflet.zoomdisplay due to no package.json in that repo
