@@ -1,4 +1,4 @@
-var API_BASEURL = 'https://api.coronafriend.com';
+var API_BASEURL = '%CORONAFRIEND_API_ENDPOINT%';
 var state = {
     map: null,
     layers: null,

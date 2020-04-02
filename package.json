@@ -24,6 +24,7 @@
     "@coronafriend/coronafriend-assets": "github:coronafriend/coronafriend-assets",
     "@fortawesome/fontawesome-free": "^5.12.1",
     "bootstrap": "^4.4.1",
+    "dotenv": "^8.2.0",
     "grunt": "^1.1.0",
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-concat": "^1.0.1",

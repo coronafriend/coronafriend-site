@@ -1,6 +1,7 @@
 /* jshint -W069 */
 
 sass = require('node-sass');
+require("dotenv").config()
 
 module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
@@ -34,8 +35,8 @@ module.exports = function (grunt) {
             options: {
                 sourceMap: true,
                 process: function(content, srcpath) {
-                    if (process.env['OVERRIDE_CORONAFRIEND_DOMAIN']) {
-                        return content.replace(/api\.coronafriend\.com/g, process.env['OVERRIDE_CORONAFRIEND_DOMAIN']);
+                    if (process.env['CORONAFRIEND_API_ENDPOINT']) {
+                        return content.replace(/%CORONAFRIEND_API_ENDPOINT%/g, process.env['CORONAFRIEND_API_ENDPOINT']);
                     }
                     return content;
                 }
