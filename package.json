@@ -22,7 +22,7 @@
   "homepage": "https://github.com/coronafriend/coronafriend-site#readme",
   "dependencies": {
     "@coronafriend/coronafriend-assets": "github:coronafriend/coronafriend-assets",
-    "@fortawesome/fontawesome-free": "^5.12.1",
+    "@fortawesome/fontawesome-free": "^5.13.0",
     "bootstrap": "^4.4.1",
     "dotenv": "^8.2.0",
     "grunt": "^1.1.0",
@@ -38,7 +38,7 @@
     "leaflet": "^1.6.0",
     "leaflet.locatecontrol": "^0.70.0",
     "load-grunt-tasks": "^5.1.0",
-    "mapbox-gl": "^1.8.1",
+    "mapbox-gl": "^1.9.0",
     "mapbox-gl-leaflet": "0.0.11",
     "node-sass": "^4.13.1",
     "popper.js": "^1.16.1",
