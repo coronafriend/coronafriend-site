@@ -9,10 +9,17 @@ files:
   - source: /config/%CORONAFRIEND_DOMAIN%.html
     destination: /var/www/html/
 
-
   # Copy build files into app build area
   - source: /dist/coronafriend-site/public
     destination: /var/www/domains/%CORONAFRIEND_DOMAIN%/public
+
+  # Copy environment robots
+  - source: /config/robots.%CORONAFRIEND_ENVIRONMENT%.txt
+    destination: /var/www/domains/%CORONAFRIEND_DOMAIN%/public
+
+  # Copy htpasswd robots
+  - source: /config/.htpasswd
+    destination: /etc/nginx/
 
   # Master Nginx config file
   - source: /config/nginx.conf
