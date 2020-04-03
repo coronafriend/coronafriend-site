@@ -1,10 +1,10 @@
 /* jshint -W069 */
 
 sass = require('node-sass');
-require("dotenv").config()
 
 module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
+    require("dotenv").config();
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -37,6 +37,9 @@ module.exports = function (grunt) {
                 process: function(content, srcpath) {
                     if (process.env['CORONAFRIEND_API_ENDPOINT']) {
                         return content.replace(/%CORONAFRIEND_API_ENDPOINT%/g, process.env['CORONAFRIEND_API_ENDPOINT']);
+                    }
+                    else {
+                        return content.replace(/%CORONAFRIEND_API_ENDPOINT%/g, 'https://api.coronafriend.com');
                     }
                     return content;
                 }
