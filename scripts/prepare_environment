@@ -8,7 +8,12 @@ EOF
 (cd /tmp && wget http://nginx.org/keys/nginx_signing.key && sudo apt-key add nginx_signing.key && rm nginx_signing.key)
 apt -y update
 apt -y install nginx
+apt -y install awscli
 apt -y autoremove
+
+# sync dhparam.pem file
+rm -f /etc/ssl/certs/dhparam.pem
+aws s3 sync s3://coronafriend-secure/dhparam.pem /etc/ssl/certs/dhparam.pem
 
 # Remove index files
 rm -f /var/www/html/index.html
