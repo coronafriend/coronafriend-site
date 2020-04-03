@@ -413,7 +413,10 @@ $(document).ready(function () {
             })
             .then(function (json) {
                 $('#user-meta-error').addClass('d-none');
-                $('#form-success-feedback').removeClass('d-none');
+                $('#form-success-feedback').removeClass('d-none').delay(5000).queue(function(next) {
+                    $(this).addClass('d-none');
+                    next();
+                });
 
                 if (json.road_meta) {
                     var road_meta = json.road_meta.join('\n');
