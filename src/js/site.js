@@ -461,15 +461,6 @@ $(document).ready(function () {
             });
     });
 
-
-    // Highlight search box text on click
-    $('#postcode-input').click(function () {
-        $(this).select();
-    });
-    $('#map-postcode-input').click(function () {
-        $(this).select();
-    });
-
     // Prevent hitting enter from refreshing the page
     $('#postcode-input').keypress(function (e) {
         if (e.which === 13) {
